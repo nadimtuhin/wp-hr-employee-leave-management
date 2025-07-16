@@ -21,10 +21,11 @@ A comprehensive WordPress plugin for managing employee leave requests with a mod
 - **Leave Request Management** - Approve/reject with one-click
 - **Year-based Filtering** - Filter requests by year
 - **Settings Panel** - 4 comprehensive tabs:
-  - General (HR Email configuration)
+  - General (HR Email configuration & notification settings)
   - Leave Types (Manage allocations)
   - Email Templates (5 customizable templates)
   - Page Management (Create/manage pages)
+- **Email Notification Control** - Enable/disable notifications for submission, approval, and rejection events
 
 ### Email System
 - **5 Email Templates**:
@@ -35,6 +36,8 @@ A comprehensive WordPress plugin for managing employee leave requests with a mod
   - Leave Notification Reliever (to relievers)
 - **Template Variables**: `{{employee_name}}`, `{{leave_dates}}`, `{{leave_types}}`, etc.
 - **HTML Email Support** with proper formatting
+- **Configurable Notifications**: Admin can enable/disable email notifications for different events
+- **Automatic Multi-Party Notifications**: Emails sent to HR, managers, relievers, and employees based on event type
 
 ## Installation
 
@@ -196,3 +199,10 @@ The test script includes:
   - Enhanced email validation with real-time feedback
   - Better error handling and AJAX response management
   - Added comprehensive test suite
+
+- **1.2.0** - My Leave Requests feature and Email Notifications
+  - Added [my_leave_requests] shortcode with pagination
+  - Implemented automatic email notifications for all parties
+  - Added admin controls for email notification settings
+  - Enhanced admin dashboard with dual page creation
+  - Improved notification logging and tracking

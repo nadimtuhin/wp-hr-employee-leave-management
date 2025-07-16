@@ -446,6 +446,58 @@ class WPEmployeeLeaves {
                             </tr>
                         </table>
                         
+                        <h3><?php _e('Email Notifications', 'wp-employee-leaves'); ?></h3>
+                        <table class="form-table">
+                            <tr>
+                                <th scope="row"><?php _e('Email Notifications', 'wp-employee-leaves'); ?></th>
+                                <td>
+                                    <fieldset>
+                                        <label for="email_notifications_enabled">
+                                            <input type="checkbox" id="email_notifications_enabled" name="email_notifications_enabled" value="1" <?php checked(get_option('wp_employee_leaves_email_notifications_enabled', 1), 1); ?>>
+                                            <?php _e('Enable email notifications', 'wp-employee-leaves'); ?>
+                                        </label>
+                                        <p class="description"><?php _e('Master switch for all email notifications. When disabled, no emails will be sent.', 'wp-employee-leaves'); ?></p>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><?php _e('Leave Request Submitted', 'wp-employee-leaves'); ?></th>
+                                <td>
+                                    <fieldset>
+                                        <label for="notify_on_submission">
+                                            <input type="checkbox" id="notify_on_submission" name="notify_on_submission" value="1" <?php checked(get_option('wp_employee_leaves_notify_on_submission', 1), 1); ?>>
+                                            <?php _e('Send notifications when leave request is submitted', 'wp-employee-leaves'); ?>
+                                        </label>
+                                        <p class="description"><?php _e('Notifies HR, managers, and relievers when a new leave request is submitted.', 'wp-employee-leaves'); ?></p>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><?php _e('Leave Request Approved', 'wp-employee-leaves'); ?></th>
+                                <td>
+                                    <fieldset>
+                                        <label for="notify_on_approval">
+                                            <input type="checkbox" id="notify_on_approval" name="notify_on_approval" value="1" <?php checked(get_option('wp_employee_leaves_notify_on_approval', 1), 1); ?>>
+                                            <?php _e('Send notifications when leave request is approved', 'wp-employee-leaves'); ?>
+                                        </label>
+                                        <p class="description"><?php _e('Notifies employee, managers, and relievers when a leave request is approved.', 'wp-employee-leaves'); ?></p>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><?php _e('Leave Request Rejected', 'wp-employee-leaves'); ?></th>
+                                <td>
+                                    <fieldset>
+                                        <label for="notify_on_rejection">
+                                            <input type="checkbox" id="notify_on_rejection" name="notify_on_rejection" value="1" <?php checked(get_option('wp_employee_leaves_notify_on_rejection', 1), 1); ?>>
+                                            <?php _e('Send notifications when leave request is rejected', 'wp-employee-leaves'); ?>
+                                        </label>
+                                        <p class="description"><?php _e('Notifies employee when a leave request is rejected.', 'wp-employee-leaves'); ?></p>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                        </table>
+                        
                         <?php submit_button(); ?>
                     </div>
                     
@@ -480,6 +532,12 @@ class WPEmployeeLeaves {
         if ($active_tab == 'general') {
             $hr_email = sanitize_email($_POST['hr_email']);
             update_option('wp_employee_leaves_hr_email', $hr_email);
+            
+            // Save email notification settings
+            update_option('wp_employee_leaves_email_notifications_enabled', isset($_POST['email_notifications_enabled']) ? 1 : 0);
+            update_option('wp_employee_leaves_notify_on_submission', isset($_POST['notify_on_submission']) ? 1 : 0);
+            update_option('wp_employee_leaves_notify_on_approval', isset($_POST['notify_on_approval']) ? 1 : 0);
+            update_option('wp_employee_leaves_notify_on_rejection', isset($_POST['notify_on_rejection']) ? 1 : 0);
             
             add_settings_error('wp_employee_leaves_settings', 'settings_updated', __('Settings saved successfully!', 'wp-employee-leaves'), 'updated');
         } elseif ($active_tab == 'leave-types') {
@@ -1623,6 +1681,9 @@ Leave Management System'
         // Log the action
         $this->log_leave_action($user_id, $request_id, 'submitted', 'Leave request submitted');
         
+        // Send email notifications
+        $this->send_leave_submission_notifications($request_id);
+        
         wp_send_json_success(__('Leave request submitted successfully!', 'wp-employee-leaves'));
     }
     
@@ -1714,6 +1775,9 @@ Leave Management System'
         // Log the action
         $this->log_leave_action($request->employee_id, $request_id, 'approved', 'Leave request approved by HR');
         
+        // Send email notifications
+        $this->send_leave_approval_notifications($request_id);
+        
         return true;
     }
     
@@ -1745,6 +1809,9 @@ Leave Management System'
         
         // Log the action
         $this->log_leave_action($request->employee_id, $request_id, 'rejected', 'Leave request rejected by HR');
+        
+        // Send email notifications
+        $this->send_leave_rejection_notifications($request_id);
         
         return true;
     }
@@ -1796,6 +1863,276 @@ Leave Management System'
         $body = nl2br($processed_template['body']);
         
         return wp_mail($to, $processed_template['subject'], $body, $headers);
+    }
+    
+    public function send_leave_submission_notifications($request_id) {
+        // Check if email notifications are enabled
+        if (!get_option('wp_employee_leaves_email_notifications_enabled', 1)) {
+            return;
+        }
+        
+        // Check if submission notifications are enabled
+        if (!get_option('wp_employee_leaves_notify_on_submission', 1)) {
+            return;
+        }
+        
+        global $wpdb;
+        $requests_table = $wpdb->prefix . 'employee_leaves_requests';
+        $dates_table = $wpdb->prefix . 'employee_leaves_dates';
+        $types_table = $wpdb->prefix . 'employee_leaves_types';
+        
+        // Get request details
+        $request = $wpdb->get_row($wpdb->prepare(
+            "SELECT * FROM $requests_table WHERE id = %d",
+            $request_id
+        ));
+        
+        if (!$request) {
+            return;
+        }
+        
+        // Get employee details
+        $employee = get_user_by('id', $request->employee_id);
+        if (!$employee) {
+            return;
+        }
+        
+        // Get leave dates and types
+        $leave_details = $wpdb->get_results($wpdb->prepare(
+            "SELECT d.leave_date, t.name as leave_type
+             FROM $dates_table d
+             JOIN $types_table t ON d.leave_type_id = t.id
+             WHERE d.request_id = %d
+             ORDER BY d.leave_date",
+            $request_id
+        ));
+        
+        // Format leave dates and types
+        $leave_dates = array();
+        $leave_types = array();
+        foreach ($leave_details as $detail) {
+            $leave_dates[] = date('M j, Y', strtotime($detail->leave_date));
+            $leave_types[] = $detail->leave_type;
+        }
+        
+        // Prepare template variables
+        $template_vars = array(
+            'employee_name' => $employee->display_name,
+            'employee_email' => $employee->user_email,
+            'employee_id' => $request->employee_code,
+            'leave_dates' => implode(', ', $leave_dates),
+            'leave_types' => implode(', ', array_unique($leave_types)),
+            'reason' => $request->reason,
+            'status' => ucfirst($request->status),
+            'approved_date' => '',
+            'manager_emails' => $request->manager_emails,
+            'reliever_emails' => $request->reliever_emails
+        );
+        
+        // Send notification to HR
+        $hr_email = get_option('wp_employee_leaves_hr_email');
+        if ($hr_email) {
+            $this->send_email_notification($hr_email, 'leave_submitted', $template_vars);
+            $this->log_email_notification($request_id, 'leave_submitted', 'Leave request submitted notification sent to HR', $hr_email);
+        }
+        
+        // Send notifications to managers
+        if (!empty($request->manager_emails)) {
+            $manager_emails = array_map('trim', explode(',', $request->manager_emails));
+            foreach ($manager_emails as $manager_email) {
+                if (!empty($manager_email) && is_email($manager_email)) {
+                    $this->send_email_notification($manager_email, 'leave_notification_manager', $template_vars);
+                    $this->log_email_notification($request_id, 'leave_notification_manager', 'Leave request notification sent to manager', $manager_email);
+                }
+            }
+        }
+        
+        // Send notifications to relievers
+        if (!empty($request->reliever_emails)) {
+            $reliever_emails = array_map('trim', explode(',', $request->reliever_emails));
+            foreach ($reliever_emails as $reliever_email) {
+                if (!empty($reliever_email) && is_email($reliever_email)) {
+                    $this->send_email_notification($reliever_email, 'leave_notification_reliever', $template_vars);
+                    $this->log_email_notification($request_id, 'leave_notification_reliever', 'Leave request notification sent to reliever', $reliever_email);
+                }
+            }
+        }
+    }
+    
+    public function send_leave_approval_notifications($request_id) {
+        // Check if email notifications are enabled
+        if (!get_option('wp_employee_leaves_email_notifications_enabled', 1)) {
+            return;
+        }
+        
+        // Check if approval notifications are enabled
+        if (!get_option('wp_employee_leaves_notify_on_approval', 1)) {
+            return;
+        }
+        
+        global $wpdb;
+        $requests_table = $wpdb->prefix . 'employee_leaves_requests';
+        $dates_table = $wpdb->prefix . 'employee_leaves_dates';
+        $types_table = $wpdb->prefix . 'employee_leaves_types';
+        
+        // Get request details
+        $request = $wpdb->get_row($wpdb->prepare(
+            "SELECT * FROM $requests_table WHERE id = %d",
+            $request_id
+        ));
+        
+        if (!$request) {
+            return;
+        }
+        
+        // Get employee details
+        $employee = get_user_by('id', $request->employee_id);
+        if (!$employee) {
+            return;
+        }
+        
+        // Get leave dates and types
+        $leave_details = $wpdb->get_results($wpdb->prepare(
+            "SELECT d.leave_date, t.name as leave_type
+             FROM $dates_table d
+             JOIN $types_table t ON d.leave_type_id = t.id
+             WHERE d.request_id = %d
+             ORDER BY d.leave_date",
+            $request_id
+        ));
+        
+        // Format leave dates and types
+        $leave_dates = array();
+        $leave_types = array();
+        foreach ($leave_details as $detail) {
+            $leave_dates[] = date('M j, Y', strtotime($detail->leave_date));
+            $leave_types[] = $detail->leave_type;
+        }
+        
+        // Prepare template variables
+        $template_vars = array(
+            'employee_name' => $employee->display_name,
+            'employee_email' => $employee->user_email,
+            'employee_id' => $request->employee_code,
+            'leave_dates' => implode(', ', $leave_dates),
+            'leave_types' => implode(', ', array_unique($leave_types)),
+            'reason' => $request->reason,
+            'status' => ucfirst($request->status),
+            'approved_date' => date('M j, Y g:i A', strtotime($request->approved_at)),
+            'manager_emails' => $request->manager_emails,
+            'reliever_emails' => $request->reliever_emails
+        );
+        
+        // Send notification to employee
+        $this->send_email_notification($employee->user_email, 'leave_approved', $template_vars);
+        $this->log_email_notification($request_id, 'leave_approved', 'Leave request approved notification sent to employee', $employee->user_email);
+        
+        // Send notifications to managers
+        if (!empty($request->manager_emails)) {
+            $manager_emails = array_map('trim', explode(',', $request->manager_emails));
+            foreach ($manager_emails as $manager_email) {
+                if (!empty($manager_email) && is_email($manager_email)) {
+                    $this->send_email_notification($manager_email, 'leave_notification_manager', $template_vars);
+                    $this->log_email_notification($request_id, 'leave_notification_manager', 'Leave request approved notification sent to manager', $manager_email);
+                }
+            }
+        }
+        
+        // Send notifications to relievers
+        if (!empty($request->reliever_emails)) {
+            $reliever_emails = array_map('trim', explode(',', $request->reliever_emails));
+            foreach ($reliever_emails as $reliever_email) {
+                if (!empty($reliever_email) && is_email($reliever_email)) {
+                    $this->send_email_notification($reliever_email, 'leave_notification_reliever', $template_vars);
+                    $this->log_email_notification($request_id, 'leave_notification_reliever', 'Leave request approved notification sent to reliever', $reliever_email);
+                }
+            }
+        }
+    }
+    
+    public function send_leave_rejection_notifications($request_id) {
+        // Check if email notifications are enabled
+        if (!get_option('wp_employee_leaves_email_notifications_enabled', 1)) {
+            return;
+        }
+        
+        // Check if rejection notifications are enabled
+        if (!get_option('wp_employee_leaves_notify_on_rejection', 1)) {
+            return;
+        }
+        
+        global $wpdb;
+        $requests_table = $wpdb->prefix . 'employee_leaves_requests';
+        $dates_table = $wpdb->prefix . 'employee_leaves_dates';
+        $types_table = $wpdb->prefix . 'employee_leaves_types';
+        
+        // Get request details
+        $request = $wpdb->get_row($wpdb->prepare(
+            "SELECT * FROM $requests_table WHERE id = %d",
+            $request_id
+        ));
+        
+        if (!$request) {
+            return;
+        }
+        
+        // Get employee details
+        $employee = get_user_by('id', $request->employee_id);
+        if (!$employee) {
+            return;
+        }
+        
+        // Get leave dates and types
+        $leave_details = $wpdb->get_results($wpdb->prepare(
+            "SELECT d.leave_date, t.name as leave_type
+             FROM $dates_table d
+             JOIN $types_table t ON d.leave_type_id = t.id
+             WHERE d.request_id = %d
+             ORDER BY d.leave_date",
+            $request_id
+        ));
+        
+        // Format leave dates and types
+        $leave_dates = array();
+        $leave_types = array();
+        foreach ($leave_details as $detail) {
+            $leave_dates[] = date('M j, Y', strtotime($detail->leave_date));
+            $leave_types[] = $detail->leave_type;
+        }
+        
+        // Prepare template variables
+        $template_vars = array(
+            'employee_name' => $employee->display_name,
+            'employee_email' => $employee->user_email,
+            'employee_id' => $request->employee_code,
+            'leave_dates' => implode(', ', $leave_dates),
+            'leave_types' => implode(', ', array_unique($leave_types)),
+            'reason' => $request->reason,
+            'status' => ucfirst($request->status),
+            'approved_date' => date('M j, Y g:i A', strtotime($request->approved_at)),
+            'manager_emails' => $request->manager_emails,
+            'reliever_emails' => $request->reliever_emails
+        );
+        
+        // Send notification to employee
+        $this->send_email_notification($employee->user_email, 'leave_rejected', $template_vars);
+        $this->log_email_notification($request_id, 'leave_rejected', 'Leave request rejected notification sent to employee', $employee->user_email);
+    }
+    
+    public function log_email_notification($request_id, $template_type, $details, $email_address = '') {
+        global $wpdb;
+        $notifications_table = $wpdb->prefix . 'employee_leaves_notifications';
+        
+        $wpdb->insert(
+            $notifications_table,
+            array(
+                'request_id' => $request_id,
+                'email_type' => $template_type,
+                'email_address' => $email_address,
+                'sent_at' => current_time('mysql'),
+                'status' => 'sent'
+            )
+        );
     }
     
     // Page Management AJAX Handlers
