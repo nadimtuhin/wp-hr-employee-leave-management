@@ -307,6 +307,91 @@
     margin-top: 15px;
 }
 
+/* Page Creation Layout */
+.page-creation-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.page-creation-column {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.page-creation-column h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 16px;
+}
+
+.page-creation-column p {
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+.shortcode-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.shortcode-section h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.shortcode-section h5 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 14px;
+}
+
+.shortcode-section p {
+    margin-bottom: 15px;
+}
+
+.shortcode-section ul {
+    margin-bottom: 0;
+}
+
+.shortcode-section li {
+    margin-bottom: 8px;
+}
+
+.shortcode-section code {
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+}
+
+@media (max-width: 768px) {
+    .page-creation-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .page-creation-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .page-creation-controls input[type="text"] {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
 .shortcode-info code {
     background: #f1f1f1;
     padding: 2px 6px;

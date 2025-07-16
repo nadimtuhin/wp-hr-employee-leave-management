@@ -196,6 +196,74 @@ jQuery(document).ready(function($) {
         }, 2000);
     });
     
+    // Copy my requests shortcode functionality
+    $('#copy-my-requests-shortcode').on('click', function() {
+        var shortcode = '[my_leave_requests]';
+        
+        // Create temporary input to copy text
+        var tempInput = $('<input>');
+        $('body').append(tempInput);
+        tempInput.val(shortcode).select();
+        document.execCommand('copy');
+        tempInput.remove();
+        
+        $(this).text('Copied!').prop('disabled', true);
+        setTimeout(function() {
+            $('#copy-my-requests-shortcode').text('Copy Shortcode').prop('disabled', false);
+        }, 2000);
+    });
+    
+    // Create My Leave Requests page functionality
+    $('#create-my-requests-page').on('click', function() {
+        var $button = $(this);
+        var pageTitle = $('#my-requests-page-title').val().trim();
+        
+        if (!pageTitle) {
+            alert('Please enter a page title');
+            return;
+        }
+        
+        $button.prop('disabled', true).text('Creating...');
+        
+        // Debug logging
+        console.log('Creating my requests page with title:', pageTitle);
+        console.log('AJAX URL:', ajaxurl);
+        console.log('Nonce:', wp_employee_leaves_admin.nonce);
+        
+        $.ajax({
+            url: wp_employee_leaves_admin.ajax_url || ajaxurl,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'create_my_requests_page',
+                page_title: pageTitle,
+                nonce: wp_employee_leaves_admin.nonce
+            },
+            success: function(response) {
+                console.log('AJAX Response:', response);
+                
+                if (response && response.success) {
+                    $('#page-creation-result').html('<div class="notice notice-success"><p>' + response.data.message + ' <a href="' + response.data.edit_url + '" target="_blank">Edit Page</a> | <a href="' + response.data.view_url + '" target="_blank">View Page</a></p></div>');
+                    $('#leave-page-select').append('<option value="' + response.data.page_id + '">' + pageTitle + '</option>');
+                    $('#my-requests-page-title').val(''); // Clear the input
+                } else {
+                    var errorMsg = response && response.data ? response.data : 'Unknown error occurred';
+                    $('#page-creation-result').html('<div class="notice notice-error"><p>Error: ' + errorMsg + '</p></div>');
+                }
+                $button.text('Create Page');
+            },
+            error: function(xhr, status, error) {
+                console.log('AJAX Error:', xhr, status, error);
+                console.log('Response Text:', xhr.responseText);
+                $('#page-creation-result').html('<div class="notice notice-error"><p>An error occurred while creating the page. Details: ' + error + '</p></div>');
+                $button.text('Create Page');
+            },
+            complete: function() {
+                $button.prop('disabled', false);
+            }
+        });
+    });
+    
     // Form validation for settings
     $('form').on('submit', function() {
         var $form = $(this);

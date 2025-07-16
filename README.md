@@ -14,6 +14,7 @@ A comprehensive WordPress plugin for managing employee leave requests with a mod
 - **Success Modal** - Beautiful modal confirmation after successful submission
 - **Duplicate Date Validation** - Prevents duplicate dates in the same request
 - **Email Validation** - Real-time validation with visual feedback for comma-separated emails
+- **My Leave Requests Shortcode** - Paginated display of employee's leave history with filters
 
 ### Admin Features
 - **Modern Dashboard** - Statistics overview with visual indicators
@@ -53,16 +54,26 @@ A comprehensive WordPress plugin for managing employee leave requests with a mod
 
 ### Manual Shortcode Usage
 
-Add `[employee_leave_form]` to any page or post.
+**Leave Request Form**: Add `[employee_leave_form]` to any page or post.
+
+**My Leave Requests**: Add `[my_leave_requests]` to any page or post.
 
 **Shortcode Attributes:**
+
+*For Leave Request Form:*
 - `title="Custom Title"` - Custom form title
 - `show_balance="false"` - Hide balance information
 - `redirect_url="/thank-you"` - Custom redirect after submission
 
-**Example:**
+*For My Leave Requests:*
+- `per_page="5"` - Number of requests per page (default: 10)
+- `show_year_filter="false"` - Hide year filter
+- `show_status_filter="false"` - Hide status filter
+
+**Examples:**
 ```
 [employee_leave_form title="Request Time Off" show_balance="false" redirect_url="/success"]
+[my_leave_requests per_page="5" show_year_filter="false"]
 ```
 
 ### Managing Leave Requests

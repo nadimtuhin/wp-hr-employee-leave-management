@@ -36,6 +36,7 @@ class WPEmployeeLeaves {
             add_action('wp_ajax_approve_leave_request', array($this, 'handle_approve_request'));
             add_action('wp_ajax_reject_leave_request', array($this, 'handle_reject_request'));
             add_action('wp_ajax_create_leave_page', array($this, 'handle_create_leave_page'));
+            add_action('wp_ajax_create_my_requests_page', array($this, 'handle_create_my_requests_page'));
             add_action('wp_ajax_add_shortcode_to_page', array($this, 'handle_add_shortcode_to_page'));
         } else {
             add_action('wp_enqueue_scripts', array($this, 'frontend_scripts'));
@@ -47,6 +48,7 @@ class WPEmployeeLeaves {
         
         
         add_shortcode('employee_leave_form', array($this, 'leave_form_shortcode'));
+        add_shortcode('my_leave_requests', array($this, 'my_leave_requests_shortcode'));
     }
     
     public function frontend_scripts() {
@@ -644,14 +646,31 @@ class WPEmployeeLeaves {
         <h2><?php _e('Page Management', 'wp-employee-leaves'); ?></h2>
         
         <div class="page-creation-section">
-            <h3><?php _e('Create New Leave Request Page', 'wp-employee-leaves'); ?></h3>
-            <p><?php _e('Create a new page with the leave request form automatically added.', 'wp-employee-leaves'); ?></p>
+            <h3><?php _e('Create New Pages', 'wp-employee-leaves'); ?></h3>
+            <p><?php _e('Create pages with leave management shortcodes automatically added.', 'wp-employee-leaves'); ?></p>
             
-            <div class="page-creation-controls">
-                <input type="text" id="leave-page-title" placeholder="<?php _e('Enter page title (e.g., Employee Leave Request)', 'wp-employee-leaves'); ?>" class="regular-text">
-                <button type="button" id="create-leave-page" class="button button-primary">
-                    <?php _e('Create Page', 'wp-employee-leaves'); ?>
-                </button>
+            <div class="page-creation-row">
+                <div class="page-creation-column">
+                    <h4><?php _e('Leave Request Form', 'wp-employee-leaves'); ?></h4>
+                    <p><?php _e('Create a page where employees can submit leave requests.', 'wp-employee-leaves'); ?></p>
+                    <div class="page-creation-controls">
+                        <input type="text" id="leave-page-title" placeholder="<?php _e('Enter page title (e.g., Submit Leave Request)', 'wp-employee-leaves'); ?>" class="regular-text">
+                        <button type="button" id="create-leave-page" class="button button-primary">
+                            <?php _e('Create Page', 'wp-employee-leaves'); ?>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="page-creation-column">
+                    <h4><?php _e('My Leave Requests', 'wp-employee-leaves'); ?></h4>
+                    <p><?php _e('Create a page where employees can view their leave request history.', 'wp-employee-leaves'); ?></p>
+                    <div class="page-creation-controls">
+                        <input type="text" id="my-requests-page-title" placeholder="<?php _e('Enter page title (e.g., My Leave Requests)', 'wp-employee-leaves'); ?>" class="regular-text">
+                        <button type="button" id="create-my-requests-page" class="button button-primary">
+                            <?php _e('Create Page', 'wp-employee-leaves'); ?>
+                        </button>
+                    </div>
+                </div>
             </div>
             
             <div id="page-creation-result"></div>
@@ -676,20 +695,41 @@ class WPEmployeeLeaves {
         
         <div class="shortcode-info">
             <h3><?php _e('Manual Shortcode Usage', 'wp-employee-leaves'); ?></h3>
-            <p><?php _e('You can manually add the leave request form to any page or post using this shortcode:', 'wp-employee-leaves'); ?></p>
-            <p>
-                <code>[employee_leave_form]</code>
-                <button type="button" id="copy-shortcode" class="button button-small">
-                    <?php _e('Copy Shortcode', 'wp-employee-leaves'); ?>
-                </button>
-            </p>
+            <p><?php _e('You can manually add these shortcodes to any page or post:', 'wp-employee-leaves'); ?></p>
             
-            <h4><?php _e('Shortcode Attributes (Optional)', 'wp-employee-leaves'); ?></h4>
-            <ul>
-                <li><code>[employee_leave_form title="Custom Title"]</code> - <?php _e('Custom form title', 'wp-employee-leaves'); ?></li>
-                <li><code>[employee_leave_form show_balance="false"]</code> - <?php _e('Hide balance information', 'wp-employee-leaves'); ?></li>
-                <li><code>[employee_leave_form redirect_url="/thank-you"]</code> - <?php _e('Custom redirect after submission', 'wp-employee-leaves'); ?></li>
-            </ul>
+            <div class="shortcode-section">
+                <h4><?php _e('Leave Request Form', 'wp-employee-leaves'); ?></h4>
+                <p>
+                    <code>[employee_leave_form]</code>
+                    <button type="button" id="copy-shortcode" class="button button-small">
+                        <?php _e('Copy Shortcode', 'wp-employee-leaves'); ?>
+                    </button>
+                </p>
+                
+                <h5><?php _e('Attributes (Optional)', 'wp-employee-leaves'); ?></h5>
+                <ul>
+                    <li><code>[employee_leave_form title="Custom Title"]</code> - <?php _e('Custom form title', 'wp-employee-leaves'); ?></li>
+                    <li><code>[employee_leave_form show_balance="false"]</code> - <?php _e('Hide balance information', 'wp-employee-leaves'); ?></li>
+                    <li><code>[employee_leave_form redirect_url="/thank-you"]</code> - <?php _e('Custom redirect after submission', 'wp-employee-leaves'); ?></li>
+                </ul>
+            </div>
+            
+            <div class="shortcode-section">
+                <h4><?php _e('My Leave Requests', 'wp-employee-leaves'); ?></h4>
+                <p>
+                    <code>[my_leave_requests]</code>
+                    <button type="button" id="copy-my-requests-shortcode" class="button button-small">
+                        <?php _e('Copy Shortcode', 'wp-employee-leaves'); ?>
+                    </button>
+                </p>
+                
+                <h5><?php _e('Attributes (Optional)', 'wp-employee-leaves'); ?></h5>
+                <ul>
+                    <li><code>[my_leave_requests per_page="5"]</code> - <?php _e('Number of requests per page (default: 10)', 'wp-employee-leaves'); ?></li>
+                    <li><code>[my_leave_requests show_year_filter="false"]</code> - <?php _e('Hide year filter', 'wp-employee-leaves'); ?></li>
+                    <li><code>[my_leave_requests show_status_filter="false"]</code> - <?php _e('Hide status filter', 'wp-employee-leaves'); ?></li>
+                </ul>
+            </div>
         </div>
         <?php
     }
@@ -1278,6 +1318,208 @@ Leave Management System'
         return ob_get_clean();
     }
     
+    // My Leave Requests Shortcode
+    public function my_leave_requests_shortcode($atts) {
+        $atts = shortcode_atts(array(
+            'per_page' => 10,
+            'show_year_filter' => 'true',
+            'show_status_filter' => 'true'
+        ), $atts, 'my_leave_requests');
+        
+        if (!is_user_logged_in()) {
+            return '<p>' . __('Please log in to view your leave requests.', 'wp-employee-leaves') . '</p>';
+        }
+        
+        $user_id = get_current_user_id();
+        $current_page = max(1, get_query_var('paged', 1));
+        $per_page = intval($atts['per_page']);
+        $offset = ($current_page - 1) * $per_page;
+        
+        // Get filter values
+        $year_filter = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
+        $status_filter = isset($_GET['status']) ? sanitize_text_field($_GET['status']) : 'all';
+        
+        global $wpdb;
+        $requests_table = $wpdb->prefix . 'employee_leaves_requests';
+        $dates_table = $wpdb->prefix . 'employee_leaves_dates';
+        $types_table = $wpdb->prefix . 'employee_leaves_types';
+        
+        // Build WHERE clause
+        $where_conditions = array("r.employee_id = %d", "YEAR(r.created_at) = %d");
+        $where_values = array($user_id, $year_filter);
+        
+        if ($status_filter !== 'all') {
+            $where_conditions[] = "r.status = %s";
+            $where_values[] = $status_filter;
+        }
+        
+        $where_clause = "WHERE " . implode(' AND ', $where_conditions);
+        
+        // Get total count for pagination
+        $total_query = "SELECT COUNT(*) FROM $requests_table r $where_clause";
+        $total_requests = $wpdb->get_var($wpdb->prepare($total_query, $where_values));
+        
+        // Get requests with pagination
+        $requests_query = "
+            SELECT r.*, GROUP_CONCAT(DISTINCT CONCAT(d.leave_date, ':', t.name) ORDER BY d.leave_date SEPARATOR '|') as leave_details
+            FROM $requests_table r
+            LEFT JOIN $dates_table d ON r.id = d.request_id
+            LEFT JOIN $types_table t ON d.leave_type_id = t.id
+            $where_clause
+            GROUP BY r.id
+            ORDER BY r.created_at DESC
+            LIMIT %d OFFSET %d
+        ";
+        
+        $requests = $wpdb->get_results($wpdb->prepare(
+            $requests_query,
+            array_merge($where_values, array($per_page, $offset))
+        ));
+        
+        // Calculate pagination
+        $total_pages = ceil($total_requests / $per_page);
+        
+        ob_start();
+        ?>
+        <div id="my-leave-requests-container">
+            <h2><?php _e('My Leave Requests', 'wp-employee-leaves'); ?></h2>
+            
+            <!-- Filters -->
+            <div class="leave-filters">
+                <form method="get" class="filters-form">
+                    <?php if ($atts['show_year_filter'] === 'true'): ?>
+                        <div class="filter-group">
+                            <label for="year-filter"><?php _e('Year:', 'wp-employee-leaves'); ?></label>
+                            <select name="year" id="year-filter">
+                                <?php
+                                $current_year = date('Y');
+                                for ($year = $current_year + 1; $year >= $current_year - 5; $year--) {
+                                    $selected = ($year == $year_filter) ? 'selected' : '';
+                                    echo "<option value='$year' $selected>$year</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if ($atts['show_status_filter'] === 'true'): ?>
+                        <div class="filter-group">
+                            <label for="status-filter"><?php _e('Status:', 'wp-employee-leaves'); ?></label>
+                            <select name="status" id="status-filter">
+                                <option value="all" <?php selected($status_filter, 'all'); ?>><?php _e('All', 'wp-employee-leaves'); ?></option>
+                                <option value="pending" <?php selected($status_filter, 'pending'); ?>><?php _e('Pending', 'wp-employee-leaves'); ?></option>
+                                <option value="approved" <?php selected($status_filter, 'approved'); ?>><?php _e('Approved', 'wp-employee-leaves'); ?></option>
+                                <option value="rejected" <?php selected($status_filter, 'rejected'); ?>><?php _e('Rejected', 'wp-employee-leaves'); ?></option>
+                            </select>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <button type="submit" class="filter-submit"><?php _e('Filter', 'wp-employee-leaves'); ?></button>
+                </form>
+            </div>
+            
+            <!-- Results Summary -->
+            <div class="results-summary">
+                <p><?php printf(__('Showing %d of %d requests for %d', 'wp-employee-leaves'), count($requests), $total_requests, $year_filter); ?></p>
+            </div>
+            
+            <!-- Requests List -->
+            <div class="leave-requests-list">
+                <?php if (empty($requests)): ?>
+                    <div class="no-requests">
+                        <p><?php _e('No leave requests found.', 'wp-employee-leaves'); ?></p>
+                    </div>
+                <?php else: ?>
+                    <?php foreach ($requests as $request): ?>
+                        <div class="leave-request-card status-<?php echo esc_attr($request->status); ?>">
+                            <div class="request-header">
+                                <div class="request-id">
+                                    <strong><?php _e('Request #', 'wp-employee-leaves'); ?><?php echo $request->id; ?></strong>
+                                </div>
+                                <div class="request-status">
+                                    <span class="status-badge status-<?php echo esc_attr($request->status); ?>">
+                                        <?php echo ucfirst($request->status); ?>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="request-details">
+                                <div class="detail-row">
+                                    <span class="label"><?php _e('Employee ID:', 'wp-employee-leaves'); ?></span>
+                                    <span class="value"><?php echo esc_html($request->employee_code); ?></span>
+                                </div>
+                                
+                                <div class="detail-row">
+                                    <span class="label"><?php _e('Leave Dates:', 'wp-employee-leaves'); ?></span>
+                                    <span class="value">
+                                        <?php
+                                        if ($request->leave_details) {
+                                            $details = explode('|', $request->leave_details);
+                                            $formatted_details = array();
+                                            foreach ($details as $detail) {
+                                                $parts = explode(':', $detail);
+                                                if (count($parts) == 2) {
+                                                    $formatted_details[] = date('M j, Y', strtotime($parts[0])) . ' (' . $parts[1] . ')';
+                                                }
+                                            }
+                                            echo implode(', ', $formatted_details);
+                                        }
+                                        ?>
+                                    </span>
+                                </div>
+                                
+                                <div class="detail-row">
+                                    <span class="label"><?php _e('Reason:', 'wp-employee-leaves'); ?></span>
+                                    <span class="value"><?php echo esc_html($request->reason); ?></span>
+                                </div>
+                                
+                                <div class="detail-row">
+                                    <span class="label"><?php _e('Submitted:', 'wp-employee-leaves'); ?></span>
+                                    <span class="value"><?php echo date('M j, Y g:i A', strtotime($request->created_at)); ?></span>
+                                </div>
+                                
+                                <?php if ($request->approved_at): ?>
+                                    <div class="detail-row">
+                                        <span class="label"><?php _e('Processed:', 'wp-employee-leaves'); ?></span>
+                                        <span class="value"><?php echo date('M j, Y g:i A', strtotime($request->approved_at)); ?></span>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+            
+            <!-- Pagination -->
+            <?php if ($total_pages > 1): ?>
+                <div class="leave-pagination">
+                    <?php
+                    $base_url = remove_query_arg('paged');
+                    $base_url = add_query_arg(array('year' => $year_filter, 'status' => $status_filter), $base_url);
+                    
+                    if ($current_page > 1): ?>
+                        <a href="<?php echo add_query_arg('paged', $current_page - 1, $base_url); ?>" class="page-link prev"><?php _e('« Previous', 'wp-employee-leaves'); ?></a>
+                    <?php endif; ?>
+                    
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                        <?php if ($i == $current_page): ?>
+                            <span class="page-link current"><?php echo $i; ?></span>
+                        <?php else: ?>
+                            <a href="<?php echo add_query_arg('paged', $i, $base_url); ?>" class="page-link"><?php echo $i; ?></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                    
+                    <?php if ($current_page < $total_pages): ?>
+                        <a href="<?php echo add_query_arg('paged', $current_page + 1, $base_url); ?>" class="page-link next"><?php _e('Next »', 'wp-employee-leaves'); ?></a>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php
+        
+        return ob_get_clean();
+    }
+    
     public function get_active_leave_types() {
         global $wpdb;
         
@@ -1626,6 +1868,63 @@ Leave Management System'
             
         } catch (Exception $e) {
             wp_send_json_error('Exception: ' . $e->getMessage());
+        }
+    }
+    
+    public function handle_create_my_requests_page() {
+        // Log the start of function for debugging
+        error_log('handle_create_my_requests_page called');
+        
+        try {
+            // Check if nonce is present
+            if (!isset($_POST['nonce'])) {
+                wp_send_json_error('Nonce missing');
+                return;
+            }
+            
+            check_ajax_referer('wp_employee_leaves_admin', 'nonce');
+            
+            if (!current_user_can('manage_options')) {
+                wp_send_json_error('Unauthorized access');
+                return;
+            }
+            
+            if (!isset($_POST['page_title']) || empty($_POST['page_title'])) {
+                wp_send_json_error('Page title is required');
+                return;
+            }
+            
+            $page_title = sanitize_text_field($_POST['page_title']);
+            
+            // Create the page
+            $page_data = array(
+                'post_title' => $page_title,
+                'post_content' => '[my_leave_requests]',
+                'post_status' => 'publish',
+                'post_type' => 'page',
+                'post_author' => get_current_user_id(),
+                'comment_status' => 'closed',
+                'ping_status' => 'closed'
+            );
+            
+            $page_id = wp_insert_post($page_data);
+            
+            if (is_wp_error($page_id)) {
+                wp_send_json_error('Failed to create page: ' . $page_id->get_error_message());
+                return;
+            }
+            
+            // Return success response
+            wp_send_json_success(array(
+                'message' => 'My Leave Requests page created successfully!',
+                'page_id' => $page_id,
+                'edit_url' => admin_url('post.php?post=' . $page_id . '&action=edit'),
+                'view_url' => get_permalink($page_id)
+            ));
+            
+        } catch (Exception $e) {
+            error_log('Error in handle_create_my_requests_page: ' . $e->getMessage());
+            wp_send_json_error('An error occurred: ' . $e->getMessage());
         }
     }
     

@@ -102,6 +102,12 @@ test_ajax_endpoint "submit_leave_request" \
     "action=submit_leave_request&nonce=$NONCE&employee_id=EMP001&manager_emails=invalid-email&reliever_emails=reliever@company.com&reason=Medical+appointment&leave_dates[]=2025-07-17&leave_types[]=1" \
     "true"
 
+# Test 7: Test my leave requests page creation
+echo -e "${YELLOW}Test 7: Create My Leave Requests page${NC}"
+test_ajax_endpoint "create_my_requests_page" \
+    "action=create_my_requests_page&nonce=$NONCE&page_title=My+Leave+Requests" \
+    "true"
+
 echo -e "${GREEN}All tests completed!${NC}"
 echo ""
 echo -e "${YELLOW}Usage Instructions:${NC}"
