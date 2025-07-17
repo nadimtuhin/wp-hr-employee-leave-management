@@ -91,36 +91,64 @@ jQuery(document).ready(function($) {
     });
     
     // Enhanced approval/rejection with better UX
-    $('.approve-request').on('click', function() {
+    $(document).on('click', '.approve-request', function(e) {
+        e.preventDefault();
+        
         var $button = $(this);
         var $row = $button.closest('tr');
         var requestId = $button.data('request-id');
+        var $statusCell = $row.find('.status-pending, .status-approved, .status-rejected');
+        var $actionCell = $button.closest('td');
+        
+        if (!requestId) {
+            showNotice('Invalid request ID.', 'error');
+            return;
+        }
         
         if (confirm('Are you sure you want to approve this leave request?')) {
+            // Visual feedback
             $button.prop('disabled', true).text('Approving...');
             $row.addClass('loading');
             
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
+                dataType: 'json',
                 data: {
                     action: 'approve_leave_request',
                     request_id: requestId,
                     nonce: wp_employee_leaves_admin.approve_nonce
                 },
                 success: function(response) {
-                    if (response.success) {
-                        $row.find('.status-pending').removeClass('status-pending').addClass('status-approved').text('Approved');
-                        $button.parent().html('<span class="dashicons dashicons-yes" style="color: #27ae60;"></span>');
-                        showNotice('Leave request approved successfully!', 'success');
+                    console.log('Approve response:', response);
+                    
+                    if (response && response.success) {
+                        // Update status cell with new styling
+                        $statusCell
+                            .removeClass('status-pending status-rejected')
+                            .addClass('status-approved')
+                            .html('<span class="dashicons dashicons-yes" style="margin-right: 5px;"></span>Approved');
+                        
+                        // Replace action buttons with status icon
+                        $actionCell.html('<span class="dashicons dashicons-yes-alt" style="color: #27ae60; font-size: 20px;" title="Approved"></span>');
+                        
+                        // Add success animation
+                        $row.removeClass('loading').addClass('success-highlight');
+                        setTimeout(function() {
+                            $row.removeClass('success-highlight');
+                        }, 2000);
+                        
+                        showNotice(response.data.message || 'Leave request approved successfully!', 'success');
                     } else {
-                        showNotice('Error: ' + response.data, 'error');
-                        $button.prop('disabled', false).text('Approve');
+                        var errorMsg = response && response.data ? response.data : 'Unknown error occurred';
+                        showNotice('Error: ' + errorMsg, 'error');
+                        resetButton($button, 'Approve');
                     }
                 },
-                error: function() {
-                    showNotice('An error occurred while processing the request.', 'error');
-                    $button.prop('disabled', false).text('Approve');
+                error: function(xhr, status, error) {
+                    console.log('AJAX Error:', xhr.responseText, status, error);
+                    showNotice('Network error occurred while processing the request.', 'error');
+                    resetButton($button, 'Approve');
                 },
                 complete: function() {
                     $row.removeClass('loading');
@@ -129,36 +157,64 @@ jQuery(document).ready(function($) {
         }
     });
     
-    $('.reject-request').on('click', function() {
+    $(document).on('click', '.reject-request', function(e) {
+        e.preventDefault();
+        
         var $button = $(this);
         var $row = $button.closest('tr');
         var requestId = $button.data('request-id');
+        var $statusCell = $row.find('.status-pending, .status-approved, .status-rejected');
+        var $actionCell = $button.closest('td');
+        
+        if (!requestId) {
+            showNotice('Invalid request ID.', 'error');
+            return;
+        }
         
         if (confirm('Are you sure you want to reject this leave request?')) {
+            // Visual feedback
             $button.prop('disabled', true).text('Rejecting...');
             $row.addClass('loading');
             
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
+                dataType: 'json',
                 data: {
                     action: 'reject_leave_request',
                     request_id: requestId,
                     nonce: wp_employee_leaves_admin.reject_nonce
                 },
                 success: function(response) {
-                    if (response.success) {
-                        $row.find('.status-pending').removeClass('status-pending').addClass('status-rejected').text('Rejected');
-                        $button.parent().html('<span class="dashicons dashicons-no" style="color: #e74c3c;"></span>');
-                        showNotice('Leave request rejected successfully!', 'success');
+                    console.log('Reject response:', response);
+                    
+                    if (response && response.success) {
+                        // Update status cell with new styling
+                        $statusCell
+                            .removeClass('status-pending status-approved')
+                            .addClass('status-rejected')
+                            .html('<span class="dashicons dashicons-no" style="margin-right: 5px;"></span>Rejected');
+                        
+                        // Replace action buttons with status icon
+                        $actionCell.html('<span class="dashicons dashicons-dismiss" style="color: #e74c3c; font-size: 20px;" title="Rejected"></span>');
+                        
+                        // Add warning animation
+                        $row.removeClass('loading').addClass('warning-highlight');
+                        setTimeout(function() {
+                            $row.removeClass('warning-highlight');
+                        }, 2000);
+                        
+                        showNotice(response.data.message || 'Leave request rejected successfully!', 'success');
                     } else {
-                        showNotice('Error: ' + response.data, 'error');
-                        $button.prop('disabled', false).text('Reject');
+                        var errorMsg = response && response.data ? response.data : 'Unknown error occurred';
+                        showNotice('Error: ' + errorMsg, 'error');
+                        resetButton($button, 'Reject');
                     }
                 },
-                error: function() {
-                    showNotice('An error occurred while processing the request.', 'error');
-                    $button.prop('disabled', false).text('Reject');
+                error: function(xhr, status, error) {
+                    console.log('AJAX Error:', xhr.responseText, status, error);
+                    showNotice('Network error occurred while processing the request.', 'error');
+                    resetButton($button, 'Reject');
                 },
                 complete: function() {
                     $row.removeClass('loading');
@@ -167,16 +223,38 @@ jQuery(document).ready(function($) {
         }
     });
     
-    // Show notification function
+    // Helper function to reset button state
+    function resetButton($button, originalText) {
+        $button.prop('disabled', false).text(originalText);
+    }
+    
+    // Enhanced notification function
     function showNotice(message, type) {
+        // Remove existing notices first
+        $('.notice').remove();
+        
         var noticeClass = 'notice-' + type;
-        var notice = '<div class="notice ' + noticeClass + ' is-dismissible"><p>' + message + '</p></div>';
+        var icon = type === 'success' ? 'yes-alt' : 'warning';
+        var notice = $('<div class="notice ' + noticeClass + ' is-dismissible" style="margin: 15px 0; padding: 15px; border-left: 4px solid; border-radius: 5px; animation: slideDown 0.3s ease;">' +
+            '<p style="margin: 0; display: flex; align-items: center; gap: 8px;">' +
+            '<span class="dashicons dashicons-' + icon + '" style="font-size: 16px;"></span>' +
+            message + '</p></div>');
+        
         $('.wrap h1').after(notice);
         
-        // Auto-dismiss after 5 seconds
+        // Auto-dismiss after 4 seconds
         setTimeout(function() {
-            $('.notice').fadeOut();
-        }, 5000);
+            notice.fadeOut(300, function() {
+                $(this).remove();
+            });
+        }, 4000);
+        
+        // Make dismissible
+        notice.on('click', '.notice-dismiss', function() {
+            notice.fadeOut(300, function() {
+                $(this).remove();
+            });
+        });
     }
     
     // Copy shortcode functionality
@@ -304,6 +382,36 @@ jQuery(document).ready(function($) {
             console.log('Auto-saving email template...');
         }, 3000);
     });
+    
+    // Add visual feedback animations
+    $('<style type="text/css">' +
+        '@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }' +
+        '.success-highlight { background-color: rgba(39, 174, 96, 0.1) !important; transition: background-color 0.3s ease; }' +
+        '.warning-highlight { background-color: rgba(231, 76, 60, 0.1) !important; transition: background-color 0.3s ease; }' +
+        '.loading td { opacity: 0.7; }' +
+    '</style>').appendTo('head');
+    
+    // Per-page selector functionality
+    window.changePerPage = function(perPage) {
+        var url = new URL(window.location);
+        url.searchParams.set('per_page', perPage);
+        url.searchParams.delete('paged'); // Reset to first page when changing per_page
+        
+        // Preserve the year parameter if it exists
+        var yearParam = url.searchParams.get('year');
+        if (yearParam) {
+            url.searchParams.set('year', yearParam);
+        }
+        
+        // Show loading feedback
+        var selectElement = document.getElementById('per-page-select');
+        if (selectElement) {
+            selectElement.disabled = true;
+            selectElement.style.opacity = '0.6';
+        }
+        
+        window.location.href = url.toString();
+    };
 });
 
 // Add error styling

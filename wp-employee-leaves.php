@@ -164,12 +164,26 @@ class WPEmployeeLeaves {
         
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html__('Employee Leaves Dashboard', 'wp-employee-leaves'); ?></h1>
+            <h1>
+                <span class="dashicons dashicons-calendar-alt" style="margin-right: 10px; color: #3498db;"></span>
+                <?php echo esc_html__('Employee Leaves Dashboard', 'wp-employee-leaves'); ?>
+            </h1>
             
             <div class="welcome-panel">
                 <div class="welcome-panel-content">
-                    <h2><?php echo esc_html__('Welcome to Employee Leaves Management', 'wp-employee-leaves'); ?></h2>
-                    <p><?php echo esc_html__('Manage your employee leave requests efficiently. Current year: ', 'wp-employee-leaves') . $current_year; ?></p>
+                    <h2>
+                        <span class="dashicons dashicons-welcome-view-site" style="margin-right: 10px; font-size: 28px; vertical-align: middle;"></span>
+                        <?php echo esc_html__('Welcome to Employee Leaves Management', 'wp-employee-leaves'); ?>
+                    </h2>
+                    <p><?php echo esc_html__('Manage your employee leave requests efficiently with our comprehensive dashboard. Current year: ', 'wp-employee-leaves') . '<strong>' . $current_year . '</strong>'; ?></p>
+                    <div style="margin-top: 20px;">
+                        <a href="<?php echo admin_url('admin.php?page=wp-employee-leaves-requests'); ?>" class="button button-hero" style="background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3); color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-right: 15px; transition: all 0.3s ease;">
+                            <?php _e('View All Requests', 'wp-employee-leaves'); ?>
+                        </a>
+                        <a href="<?php echo admin_url('admin.php?page=wp-employee-leaves-settings'); ?>" class="button button-hero" style="background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                            <?php _e('Settings', 'wp-employee-leaves'); ?>
+                        </a>
+                    </div>
                 </div>
             </div>
             
@@ -233,21 +247,57 @@ class WPEmployeeLeaves {
                 <div class="dashboard-card">
                     <h3><?php _e('Quick Actions', 'wp-employee-leaves'); ?></h3>
                     <div class="card-content">
-                        <p>
+                        <div class="quick-actions-grid">
                             <a href="<?php echo admin_url('admin.php?page=wp-employee-leaves-requests'); ?>" class="button button-primary">
+                                <span class="dashicons dashicons-list-view" style="margin-right: 8px;"></span>
                                 <?php _e('Manage Requests', 'wp-employee-leaves'); ?>
                             </a>
-                        </p>
-                        <p>
                             <a href="<?php echo admin_url('admin.php?page=wp-employee-leaves-settings'); ?>" class="button button-secondary">
+                                <span class="dashicons dashicons-admin-settings" style="margin-right: 8px;"></span>
                                 <?php _e('Settings', 'wp-employee-leaves'); ?>
                             </a>
-                        </p>
-                        <p>
                             <a href="<?php echo admin_url('admin.php?page=wp-employee-leaves-employees'); ?>" class="button button-secondary">
+                                <span class="dashicons dashicons-admin-users" style="margin-right: 8px;"></span>
                                 <?php _e('Employee Management', 'wp-employee-leaves'); ?>
                             </a>
-                        </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3><?php _e('System Overview', 'wp-employee-leaves'); ?></h3>
+                    <div class="card-content">
+                        <?php 
+                        $total_employees = count_users()['total_users'];
+                        $hr_email = get_option('wp_employee_leaves_hr_email');
+                        $email_notifications = get_option('wp_employee_leaves_email_notifications_enabled', 1);
+                        ?>
+                        <div style="display: grid; gap: 15px;">
+                            <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: linear-gradient(135deg, #e8f4f8, #d1ecf1); border-radius: 8px;">
+                                <span class="dashicons dashicons-admin-users" style="color: #3498db; font-size: 20px;"></span>
+                                <div>
+                                    <strong><?php echo $total_employees; ?></strong> <?php _e('Total Users', 'wp-employee-leaves'); ?>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: linear-gradient(135deg, <?php echo $hr_email ? '#d4edda' : '#f8d7da'; ?>, <?php echo $hr_email ? '#c3e6cb' : '#f5c6cb'; ?>); border-radius: 8px;">
+                                <span class="dashicons dashicons-email" style="color: <?php echo $hr_email ? '#27ae60' : '#e74c3c'; ?>; font-size: 20px;"></span>
+                                <div>
+                                    <strong><?php echo $hr_email ? __('HR Email Configured', 'wp-employee-leaves') : __('HR Email Missing', 'wp-employee-leaves'); ?></strong>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; padding: 12px; background: linear-gradient(135deg, <?php echo $email_notifications ? '#d4edda' : '#fff3cd'; ?>, <?php echo $email_notifications ? '#c3e6cb' : '#ffeaa7'; ?>); border-radius: 8px;">
+                                <span class="dashicons dashicons-email-alt" style="color: <?php echo $email_notifications ? '#27ae60' : '#f39c12'; ?>; font-size: 20px;"></span>
+                                <div>
+                                    <strong><?php echo $email_notifications ? __('Notifications Enabled', 'wp-employee-leaves') : __('Notifications Disabled', 'wp-employee-leaves'); ?></strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="<?php echo admin_url('admin.php?page=wp-employee-leaves-settings'); ?>" class="button button-secondary">
+                                <span class="dashicons dashicons-admin-tools" style="margin-right: 5px;"></span>
+                                <?php _e('Configure System', 'wp-employee-leaves'); ?>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -264,28 +314,75 @@ class WPEmployeeLeaves {
         
         $year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
         
-        // Get all leave requests for the year
+        // Pagination setup
+        $per_page_options = array(5, 10, 20, 50);
+        $per_page = isset($_GET['per_page']) && in_array(intval($_GET['per_page']), $per_page_options) ? intval($_GET['per_page']) : 10;
+        $current_page = isset($_GET['paged']) ? max(1, intval($_GET['paged'])) : 1;
+        $offset = ($current_page - 1) * $per_page;
+        
+        // Get total count for pagination
+        $total_requests = $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(*) 
+             FROM $requests_table r 
+             JOIN {$wpdb->users} u ON r.employee_id = u.ID 
+             WHERE YEAR(r.created_at) = %d",
+            $year
+        ));
+        
+        $total_pages = ceil($total_requests / $per_page);
+        
+        // Get paginated leave requests for the year
         $requests = $wpdb->get_results($wpdb->prepare(
             "SELECT r.*, u.display_name, u.user_email 
              FROM $requests_table r 
              JOIN {$wpdb->users} u ON r.employee_id = u.ID 
              WHERE YEAR(r.created_at) = %d 
-             ORDER BY r.created_at DESC",
-            $year
+             ORDER BY r.created_at DESC
+             LIMIT %d OFFSET %d",
+            $year, $per_page, $offset
         ));
         
         ?>
         <div class="wrap">
             <h1><?php echo esc_html__('Leave Requests', 'wp-employee-leaves'); ?></h1>
             
-            <div class="year-filter">
-                <label for="year-select"><?php _e('Year:', 'wp-employee-leaves'); ?></label>
-                <select id="year-select" onchange="location = this.value;">
-                    <?php for ($y = date('Y') - 2; $y <= date('Y') + 1; $y++): ?>
-                        <option value="<?php echo admin_url('admin.php?page=wp-employee-leaves-requests&year=' . $y); ?>" 
-                                <?php selected($year, $y); ?>><?php echo $y; ?></option>
-                    <?php endfor; ?>
-                </select>
+            <!-- Filters Section -->
+            <div class="requests-filters">
+                <div class="filter-row">
+                    <div class="filter-item">
+                        <label for="year-select"><?php _e('Filter by Year:', 'wp-employee-leaves'); ?></label>
+                        <select id="year-select" onchange="location = this.value;">
+                            <?php for ($y = date('Y') - 2; $y <= date('Y') + 1; $y++): ?>
+                                <option value="<?php echo admin_url('admin.php?page=wp-employee-leaves-requests&year=' . $y . '&per_page=' . $per_page); ?>" 
+                                        <?php selected($year, $y); ?>><?php echo $y; ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-item">
+                        <label for="per-page-select"><?php _e('Show:', 'wp-employee-leaves'); ?></label>
+                        <select id="per-page-select" onchange="changePerPage(this.value);">
+                            <?php foreach ($per_page_options as $option): ?>
+                                <option value="<?php echo $option; ?>" <?php selected($per_page, $option); ?>>
+                                    <?php echo $option; ?> <?php _e('per page', 'wp-employee-leaves'); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    
+                    <div class="results-summary">
+                        <?php 
+                        $start = $total_requests > 0 ? $offset + 1 : 0;
+                        $end = min($offset + $per_page, $total_requests);
+                        printf(
+                            __('Showing %d-%d of %d requests', 'wp-employee-leaves'),
+                            $start,
+                            $end,
+                            $total_requests
+                        );
+                        ?>
+                    </div>
+                </div>
             </div>
             
             <table class="wp-list-table widefat fixed striped">
@@ -363,6 +460,35 @@ class WPEmployeeLeaves {
                     <?php endif; ?>
                 </tbody>
             </table>
+            
+            <?php if ($total_pages > 1): ?>
+                <div class="tablenav bottom">
+                    <div class="tablenav-pages">
+                        <?php
+                        $page_links = paginate_links(array(
+                            'base' => add_query_arg('paged', '%#%'),
+                            'format' => '',
+                            'prev_text' => __('&laquo; Previous', 'wp-employee-leaves'),
+                            'next_text' => __('Next &raquo;', 'wp-employee-leaves'),
+                            'total' => $total_pages,
+                            'current' => $current_page,
+                            'show_all' => false,
+                            'end_size' => 1,
+                            'mid_size' => 2,
+                            'type' => 'list',
+                            'add_args' => array('year' => $year, 'per_page' => $per_page)
+                        ));
+                        
+                        if ($page_links) {
+                            echo '<span class="displaying-num">' . 
+                                 sprintf(_n('%d item', '%d items', $total_requests, 'wp-employee-leaves'), $total_requests) . 
+                                 '</span>';
+                            echo $page_links;
+                        }
+                        ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
         
         
@@ -1700,29 +1826,79 @@ Leave Management System'
     
     // Approval Workflow
     public function handle_approve_request() {
-        check_ajax_referer('approve_leave_nonce', 'nonce');
-        
-        if (!current_user_can('manage_options')) {
-            wp_die(json_encode(array('success' => false, 'message' => 'Unauthorized')));
+        try {
+            check_ajax_referer('approve_leave_nonce', 'nonce');
+            
+            if (!current_user_can('manage_options')) {
+                wp_send_json_error('Unauthorized access.');
+                return;
+            }
+            
+            if (!isset($_POST['request_id'])) {
+                wp_send_json_error('Request ID is required.');
+                return;
+            }
+            
+            $request_id = intval($_POST['request_id']);
+            
+            if ($request_id <= 0) {
+                wp_send_json_error('Invalid request ID.');
+                return;
+            }
+            
+            $result = $this->approve_leave_request($request_id);
+            
+            if ($result) {
+                wp_send_json_success(array(
+                    'message' => 'Leave request approved successfully!',
+                    'request_id' => $request_id,
+                    'new_status' => 'approved'
+                ));
+            } else {
+                wp_send_json_error('Failed to approve leave request. It may have already been processed.');
+            }
+            
+        } catch (Exception $e) {
+            wp_send_json_error('An error occurred: ' . $e->getMessage());
         }
-        
-        $request_id = intval($_POST['request_id']);
-        $this->approve_leave_request($request_id);
-        
-        wp_die(json_encode(array('success' => true, 'message' => 'Leave request approved successfully')));
     }
     
     public function handle_reject_request() {
-        check_ajax_referer('reject_leave_nonce', 'nonce');
-        
-        if (!current_user_can('manage_options')) {
-            wp_die(json_encode(array('success' => false, 'message' => 'Unauthorized')));
+        try {
+            check_ajax_referer('reject_leave_nonce', 'nonce');
+            
+            if (!current_user_can('manage_options')) {
+                wp_send_json_error('Unauthorized access.');
+                return;
+            }
+            
+            if (!isset($_POST['request_id'])) {
+                wp_send_json_error('Request ID is required.');
+                return;
+            }
+            
+            $request_id = intval($_POST['request_id']);
+            
+            if ($request_id <= 0) {
+                wp_send_json_error('Invalid request ID.');
+                return;
+            }
+            
+            $result = $this->reject_leave_request($request_id);
+            
+            if ($result) {
+                wp_send_json_success(array(
+                    'message' => 'Leave request rejected successfully!',
+                    'request_id' => $request_id,
+                    'new_status' => 'rejected'
+                ));
+            } else {
+                wp_send_json_error('Failed to reject leave request. It may have already been processed.');
+            }
+            
+        } catch (Exception $e) {
+            wp_send_json_error('An error occurred: ' . $e->getMessage());
         }
-        
-        $request_id = intval($_POST['request_id']);
-        $this->reject_leave_request($request_id);
-        
-        wp_die(json_encode(array('success' => true, 'message' => 'Leave request rejected successfully')));
     }
     
     public function approve_leave_request($request_id) {
@@ -1865,6 +2041,39 @@ Leave Management System'
         return wp_mail($to, $processed_template['subject'], $body, $headers);
     }
     
+    public function collect_unique_emails($manager_emails_string, $reliever_emails_string, $additional_emails = array()) {
+        $all_emails = array();
+        
+        // Add additional emails (like HR)
+        foreach ($additional_emails as $email) {
+            if (!empty($email) && is_email($email)) {
+                $all_emails[strtolower(trim($email))] = trim($email);
+            }
+        }
+        
+        // Process manager emails
+        if (!empty($manager_emails_string)) {
+            $manager_emails = array_map('trim', explode(',', $manager_emails_string));
+            foreach ($manager_emails as $email) {
+                if (!empty($email) && is_email($email)) {
+                    $all_emails[strtolower(trim($email))] = trim($email);
+                }
+            }
+        }
+        
+        // Process reliever emails
+        if (!empty($reliever_emails_string)) {
+            $reliever_emails = array_map('trim', explode(',', $reliever_emails_string));
+            foreach ($reliever_emails as $email) {
+                if (!empty($email) && is_email($email)) {
+                    $all_emails[strtolower(trim($email))] = trim($email);
+                }
+            }
+        }
+        
+        return array_values($all_emails); // Return only unique emails
+    }
+    
     public function send_leave_submission_notifications($request_id) {
         // Check if email notifications are enabled
         if (!get_option('wp_employee_leaves_email_notifications_enabled', 1)) {
@@ -1936,25 +2145,39 @@ Leave Management System'
             $this->log_email_notification($request_id, 'leave_submitted', 'Leave request submitted notification sent to HR', $hr_email);
         }
         
-        // Send notifications to managers
-        if (!empty($request->manager_emails)) {
-            $manager_emails = array_map('trim', explode(',', $request->manager_emails));
-            foreach ($manager_emails as $manager_email) {
-                if (!empty($manager_email) && is_email($manager_email)) {
-                    $this->send_email_notification($manager_email, 'leave_notification_manager', $template_vars);
-                    $this->log_email_notification($request_id, 'leave_notification_manager', 'Leave request notification sent to manager', $manager_email);
-                }
-            }
-        }
+        // Collect unique emails for managers and relievers to prevent duplicates
+        $hr_emails = !empty($hr_email) ? array($hr_email) : array();
+        $unique_emails = $this->collect_unique_emails($request->manager_emails, $request->reliever_emails, $hr_emails);
         
-        // Send notifications to relievers
-        if (!empty($request->reliever_emails)) {
-            $reliever_emails = array_map('trim', explode(',', $request->reliever_emails));
-            foreach ($reliever_emails as $reliever_email) {
-                if (!empty($reliever_email) && is_email($reliever_email)) {
-                    $this->send_email_notification($reliever_email, 'leave_notification_reliever', $template_vars);
-                    $this->log_email_notification($request_id, 'leave_notification_reliever', 'Leave request notification sent to reliever', $reliever_email);
-                }
+        // Send notifications to unique managers and relievers
+        foreach ($unique_emails as $email) {
+            // Skip HR email as it was already sent above
+            if ($email === $hr_email) {
+                continue;
+            }
+            
+            // Determine if this email is a manager, reliever, or both
+            $is_manager = false;
+            $is_reliever = false;
+            
+            if (!empty($request->manager_emails)) {
+                $manager_emails = array_map('strtolower', array_map('trim', explode(',', $request->manager_emails)));
+                $is_manager = in_array(strtolower($email), $manager_emails);
+            }
+            
+            if (!empty($request->reliever_emails)) {
+                $reliever_emails = array_map('strtolower', array_map('trim', explode(',', $request->reliever_emails)));
+                $is_reliever = in_array(strtolower($email), $reliever_emails);
+            }
+            
+            // Send appropriate notification (prefer manager template if person has both roles)
+            if ($is_manager) {
+                $this->send_email_notification($email, 'leave_notification_manager', $template_vars);
+                $role_description = $is_reliever ? 'manager/reliever' : 'manager';
+                $this->log_email_notification($request_id, 'leave_notification_manager', "Leave request notification sent to {$role_description}", $email);
+            } elseif ($is_reliever) {
+                $this->send_email_notification($email, 'leave_notification_reliever', $template_vars);
+                $this->log_email_notification($request_id, 'leave_notification_reliever', 'Leave request notification sent to reliever', $email);
             }
         }
     }
@@ -2027,25 +2250,39 @@ Leave Management System'
         $this->send_email_notification($employee->user_email, 'leave_approved', $template_vars);
         $this->log_email_notification($request_id, 'leave_approved', 'Leave request approved notification sent to employee', $employee->user_email);
         
-        // Send notifications to managers
-        if (!empty($request->manager_emails)) {
-            $manager_emails = array_map('trim', explode(',', $request->manager_emails));
-            foreach ($manager_emails as $manager_email) {
-                if (!empty($manager_email) && is_email($manager_email)) {
-                    $this->send_email_notification($manager_email, 'leave_notification_manager', $template_vars);
-                    $this->log_email_notification($request_id, 'leave_notification_manager', 'Leave request approved notification sent to manager', $manager_email);
-                }
-            }
-        }
+        // Collect unique emails for managers and relievers to prevent duplicates
+        $employee_emails = array($employee->user_email);
+        $unique_emails = $this->collect_unique_emails($request->manager_emails, $request->reliever_emails, $employee_emails);
         
-        // Send notifications to relievers
-        if (!empty($request->reliever_emails)) {
-            $reliever_emails = array_map('trim', explode(',', $request->reliever_emails));
-            foreach ($reliever_emails as $reliever_email) {
-                if (!empty($reliever_email) && is_email($reliever_email)) {
-                    $this->send_email_notification($reliever_email, 'leave_notification_reliever', $template_vars);
-                    $this->log_email_notification($request_id, 'leave_notification_reliever', 'Leave request approved notification sent to reliever', $reliever_email);
-                }
+        // Send notifications to unique managers and relievers
+        foreach ($unique_emails as $email) {
+            // Skip employee email as it was already sent above
+            if ($email === $employee->user_email) {
+                continue;
+            }
+            
+            // Determine if this email is a manager, reliever, or both
+            $is_manager = false;
+            $is_reliever = false;
+            
+            if (!empty($request->manager_emails)) {
+                $manager_emails = array_map('strtolower', array_map('trim', explode(',', $request->manager_emails)));
+                $is_manager = in_array(strtolower($email), $manager_emails);
+            }
+            
+            if (!empty($request->reliever_emails)) {
+                $reliever_emails = array_map('strtolower', array_map('trim', explode(',', $request->reliever_emails)));
+                $is_reliever = in_array(strtolower($email), $reliever_emails);
+            }
+            
+            // Send appropriate notification (prefer manager template if person has both roles)
+            if ($is_manager) {
+                $this->send_email_notification($email, 'leave_notification_manager', $template_vars);
+                $role_description = $is_reliever ? 'manager/reliever' : 'manager';
+                $this->log_email_notification($request_id, 'leave_notification_manager', "Leave request approved notification sent to {$role_description}", $email);
+            } elseif ($is_reliever) {
+                $this->send_email_notification($email, 'leave_notification_reliever', $template_vars);
+                $this->log_email_notification($request_id, 'leave_notification_reliever', 'Leave request approved notification sent to reliever', $email);
             }
         }
     }
@@ -2117,6 +2354,42 @@ Leave Management System'
         // Send notification to employee
         $this->send_email_notification($employee->user_email, 'leave_rejected', $template_vars);
         $this->log_email_notification($request_id, 'leave_rejected', 'Leave request rejected notification sent to employee', $employee->user_email);
+        
+        // Collect unique emails for managers and relievers to prevent duplicates
+        $employee_emails = array($employee->user_email);
+        $unique_emails = $this->collect_unique_emails($request->manager_emails, $request->reliever_emails, $employee_emails);
+        
+        // Send notifications to unique managers and relievers
+        foreach ($unique_emails as $email) {
+            // Skip employee email as it was already sent above
+            if ($email === $employee->user_email) {
+                continue;
+            }
+            
+            // Determine if this email is a manager, reliever, or both
+            $is_manager = false;
+            $is_reliever = false;
+            
+            if (!empty($request->manager_emails)) {
+                $manager_emails = array_map('strtolower', array_map('trim', explode(',', $request->manager_emails)));
+                $is_manager = in_array(strtolower($email), $manager_emails);
+            }
+            
+            if (!empty($request->reliever_emails)) {
+                $reliever_emails = array_map('strtolower', array_map('trim', explode(',', $request->reliever_emails)));
+                $is_reliever = in_array(strtolower($email), $reliever_emails);
+            }
+            
+            // Send appropriate notification (prefer manager template if person has both roles)
+            if ($is_manager) {
+                $this->send_email_notification($email, 'leave_notification_manager', $template_vars);
+                $role_description = $is_reliever ? 'manager/reliever' : 'manager';
+                $this->log_email_notification($request_id, 'leave_notification_manager', "Leave request rejected notification sent to {$role_description}", $email);
+            } elseif ($is_reliever) {
+                $this->send_email_notification($email, 'leave_notification_reliever', $template_vars);
+                $this->log_email_notification($request_id, 'leave_notification_reliever', 'Leave request rejected notification sent to reliever', $email);
+            }
+        }
     }
     
     public function log_email_notification($request_id, $template_type, $details, $email_address = '') {
