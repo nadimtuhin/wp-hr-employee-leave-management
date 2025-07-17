@@ -15,7 +15,7 @@ AJAX_URL="$BASE_URL/wp-admin/admin-ajax.php"
 FORM_URL="$BASE_URL/leave-request/"
 
 # WordPress session cookies (update these with current valid cookies)
-COOKIES="wordpress_b2398a4c0dc538785b6d3243923c34cf=admin%7C1752826739%7CaNfUuDvtITdiPnJLZokimwG1jAvmQah5Zyfdxkvb6wT%7C8abd45c5c465a5b386579818ad8300830c6b047a2b8f902dd0a36cdef31c4e44; wordpress_logged_in_b2398a4c0dc538785b6d3243923c34cf=admin%7C1752826739%7CaNfUuDvtITdiPnJLZokimwG1jAvmQah5Zyfdxkvb6wT%7Cf3ce66f91c21162a2c75fee1506426f133e8db09fcfb0d79b13eafc3056ca6ef"
+COOKIES="your_wordpress_session_cookies_here"
 
 echo -e "${YELLOW}WP Employee Leaves Plugin - Test Script${NC}"
 echo "======================================"
