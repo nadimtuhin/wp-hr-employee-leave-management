@@ -54,8 +54,8 @@ jQuery(document).ready(function($) {
             action: 'submit_leave_request',
             nonce: wp_employee_leaves_ajax.nonce,
             employee_id: $('#employee_id').val(),
-            manager_emails: $('#manager_emails').val(),
-            reliever_emails: $('#reliever_emails').val(),
+            manager_emails: collectEmails('#manager-emails-container'),
+            reliever_emails: collectEmails('#reliever-emails-container'),
             reason: $('#reason').val(),
             leave_dates: [],
             leave_types: []
@@ -109,14 +109,10 @@ jQuery(document).ready(function($) {
         }
         
         // Validate email fields
-        var emailValidation = true;
-        $('#manager_emails, #reliever_emails').each(function() {
-            if ($(this).val().trim() && !validateEmailField($(this))) {
-                emailValidation = false;
-            }
-        });
+        var managerEmailsValid = validateAllEmails('#manager-emails-container');
+        var relieverEmailsValid = validateAllEmails('#reliever-emails-container');
         
-        if (!emailValidation) {
+        if (!managerEmailsValid || !relieverEmailsValid) {
             showMessage('Please fix the email validation errors before submitting.', 'error');
             $button.prop('disabled', false).text('Submit Leave Request');
             return;
@@ -163,7 +159,7 @@ jQuery(document).ready(function($) {
     function showMessage(message, type) {
         var $message = $('#leave-form-message');
         $message.removeClass('success error').addClass(type);
-        $message.html(message).show();
+        $message.text(message).show();
         
         // Auto-hide after 5 seconds
         setTimeout(function() {
@@ -182,81 +178,327 @@ jQuery(document).ready(function($) {
         return re.test(email);
     }
     
-    // Validate comma-separated emails
-    function validateEmailField($field) {
-        var emails = $field.val().split(',');
-        var invalidEmails = [];
-        var validEmails = [];
-        
-        for (var i = 0; i < emails.length; i++) {
-            var email = emails[i].trim();
-            if (email) {
-                if (validateEmail(email)) {
-                    validEmails.push(email);
-                } else {
-                    invalidEmails.push(email);
-                }
-            }
-        }
-        
-        // Remove validation classes first
-        $field.removeClass('valid-emails invalid-emails');
-        
-        if (invalidEmails.length > 0) {
-            $field.addClass('invalid-emails');
-            showMessage('Invalid email addresses in ' + $field.prev('label').text() + ': ' + invalidEmails.join(', '), 'error');
-            return false;
-        } else if (validEmails.length > 0) {
-            $field.addClass('valid-emails');
-            // Clean up the field with properly formatted emails
-            $field.val(validEmails.join(', '));
-        }
-        
-        return true;
-    }
     
-    // Validate email fields on blur
-    $('#manager_emails, #reliever_emails').on('blur', function() {
-        validateEmailField($(this));
+    // Email Field Management
+    
+    // Add new email field
+    $('.add-email-field').on('click', function() {
+        var target = $(this).data('target');
+        var container = $('#' + target + '-emails-container');
+        var firstRow = container.find('.email-field-row:first');
+        var newRow = firstRow.clone();
+        
+        // Clear the input value
+        newRow.find('input').val('').removeClass('valid-email invalid-email');
+        
+        // Show remove button for new rows
+        newRow.find('.remove-email-field').show();
+        
+        // Append to container
+        container.append(newRow);
+        
+        // Focus on the new input
+        newRow.find('input').focus();
+        
+        // Update remove buttons visibility
+        updateEmailRemoveButtons(container);
     });
     
-    // Real-time validation on input
-    $('#manager_emails, #reliever_emails').on('input', function() {
+    // Remove email field
+    $(document).on('click', '.remove-email-field', function() {
+        var container = $(this).closest('.email-fields-container');
+        $(this).closest('.email-field-row').remove();
+        updateEmailRemoveButtons(container);
+    });
+    
+    // Update remove buttons visibility
+    function updateEmailRemoveButtons(container) {
+        var rows = container.find('.email-field-row');
+        if (rows.length <= 1) {
+            rows.find('.remove-email-field').hide();
+        } else {
+            rows.find('.remove-email-field').show();
+        }
+    }
+    
+    // Validate individual email field
+    function validateEmailInput(input) {
+        var email = input.val().trim();
+        
+        // Remove previous validation classes
+        input.removeClass('valid-email invalid-email');
+        
+        if (email === '') {
+            return true; // Empty is valid (fields are optional)
+        }
+        
+        if (validateEmail(email)) {
+            input.addClass('valid-email');
+            return true;
+        } else {
+            input.addClass('invalid-email');
+            return false;
+        }
+    }
+    
+    // Validate email on blur
+    $(document).on('blur', '.email-field', function() {
+        validateEmailInput($(this));
+    });
+    
+    // Real-time validation and autocomplete on input
+    $(document).on('input', '.email-field', function() {
         var $field = $(this);
+        
         // Clear previous validation classes
-        $field.removeClass('valid-emails invalid-emails');
+        $field.removeClass('valid-email invalid-email');
         
         // Only validate if field is not empty
         if ($field.val().trim()) {
             // Debounce validation to avoid excessive calls
             clearTimeout($field.data('validationTimeout'));
             $field.data('validationTimeout', setTimeout(function() {
-                validateEmailField($field);
-            }, 1000));
+                validateEmailInput($field);
+                // Show contact suggestions
+                showContactSuggestions($field);
+            }, 500));
+        } else {
+            // Hide suggestions if field is empty
+            hideContactSuggestions($field);
         }
+    });
+    
+    // Collect emails from multiple fields
+    function collectEmails(containerSelector) {
+        var emails = [];
+        $(containerSelector + ' .email-field').each(function() {
+            var email = $(this).val().trim();
+            if (email && validateEmail(email)) {
+                emails.push(email);
+            }
+        });
+        return emails.join(', ');
+    }
+    
+    // Validate all email fields in a container
+    function validateAllEmails(containerSelector) {
+        var allValid = true;
+        $(containerSelector + ' .email-field').each(function() {
+            var email = $(this).val().trim();
+            if (email && !validateEmailInput($(this))) {
+                allValid = false;
+            }
+        });
+        return allValid;
+    }
+    
+    // Success Modal Functions - Moved inside jQuery ready block to access $
+    window.showSuccessModal = function() {
+        $('#success-modal').fadeIn(300);
+        
+        // Close modal when clicking outside
+        $('#success-modal').on('click', function(e) {
+            if (e.target === this) {
+                window.closeSuccessModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        $(document).on('keydown.modal', function(e) {
+            if (e.keyCode === 27) { // Escape key
+                window.closeSuccessModal();
+            }
+        });
+        
+        // Close modal when clicking the close button
+        $('#success-modal').on('click', '.success-modal-close', function() {
+            window.closeSuccessModal();
+        });
+    };
+
+    window.closeSuccessModal = function() {
+        $('#success-modal').fadeOut(300);
+        $(document).off('keydown.modal');
+    };
+    
+    
+    // Contact Suggestions Auto-Complete
+    
+    // Show contact suggestions
+    function showContactSuggestions($field) {
+        var query = $field.val().trim();
+        var fieldType = getFieldType($field);
+        
+        if (query.length < 2) {
+            hideContactSuggestions($field);
+            return;
+        }
+        
+        // Get suggestions from server
+        $.ajax({
+            url: wp_employee_leaves_ajax.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'get_contact_suggestions',
+                nonce: wp_employee_leaves_ajax.nonce,
+                query: query,
+                contact_type: fieldType
+            },
+            success: function(response) {
+                if (response.success && response.data.length > 0) {
+                    displayContactSuggestions($field, response.data);
+                } else {
+                    hideContactSuggestions($field);
+                }
+            },
+            error: function() {
+                hideContactSuggestions($field);
+            }
+        });
+    }
+    
+    // Display contact suggestions dropdown
+    function displayContactSuggestions($field, suggestions) {
+        // Remove existing suggestions
+        hideContactSuggestions($field);
+        
+        // Create suggestions dropdown
+        var $dropdown = $('<div class="contact-suggestions"></div>');
+        
+        suggestions.forEach(function(contact) {
+            var $suggestion = $('<div class="suggestion-item"></div>');
+            
+            var displayText = contact.display_name ? 
+                contact.display_name + ' (' + contact.email_address + ')' : 
+                contact.email_address;
+                
+            $suggestion.text(displayText);
+            $suggestion.data('email', contact.email_address);
+            $suggestion.data('name', contact.display_name || '');
+            
+            // Click handler for suggestion
+            $suggestion.on('click', function() {
+                $field.val(contact.email_address);
+                validateEmailInput($field);
+                hideContactSuggestions($field);
+                $field.focus();
+            });
+            
+            $dropdown.append($suggestion);
+        });
+        
+        // Position dropdown
+        var fieldOffset = $field.offset();
+        var fieldHeight = $field.outerHeight();
+        
+        $dropdown.css({
+            position: 'absolute',
+            top: fieldOffset.top + fieldHeight,
+            left: fieldOffset.left,
+            width: $field.outerWidth(),
+            zIndex: 1000
+        });
+        
+        // Append to body
+        $('body').append($dropdown);
+        
+        // Store reference for cleanup
+        $field.data('suggestions-dropdown', $dropdown);
+        
+        // Close dropdown when clicking outside
+        $(document).on('click.suggestions', function(e) {
+            if (!$(e.target).closest('.contact-suggestions, .email-field').length) {
+                hideContactSuggestions($field);
+            }
+        });
+    }
+    
+    // Hide contact suggestions
+    function hideContactSuggestions($field) {
+        var $dropdown = $field.data('suggestions-dropdown');
+        if ($dropdown) {
+            $dropdown.remove();
+            $field.removeData('suggestions-dropdown');
+        }
+        $(document).off('click.suggestions');
+    }
+    
+    // Get field type (manager or reliever)
+    function getFieldType($field) {
+        var container = $field.closest('.email-fields-container');
+        if (container.attr('id') === 'manager-emails-container') {
+            return 'manager';
+        } else if (container.attr('id') === 'reliever-emails-container') {
+            return 'reliever';
+        }
+        return 'unknown';
+    }
+    
+    // Handle keyboard navigation in suggestions
+    $(document).on('keydown', '.email-field', function(e) {
+        var $field = $(this);
+        var $dropdown = $field.data('suggestions-dropdown');
+        
+        if (!$dropdown) return;
+        
+        var $suggestions = $dropdown.find('.suggestion-item');
+        var $active = $suggestions.filter('.active');
+        
+        switch(e.keyCode) {
+            case 38: // Up arrow
+                e.preventDefault();
+                if ($active.length) {
+                    $active.removeClass('active');
+                    var $prev = $active.prev('.suggestion-item');
+                    if ($prev.length) {
+                        $prev.addClass('active');
+                    } else {
+                        $suggestions.last().addClass('active');
+                    }
+                } else {
+                    $suggestions.last().addClass('active');
+                }
+                break;
+                
+            case 40: // Down arrow
+                e.preventDefault();
+                if ($active.length) {
+                    $active.removeClass('active');
+                    var $next = $active.next('.suggestion-item');
+                    if ($next.length) {
+                        $next.addClass('active');
+                    } else {
+                        $suggestions.first().addClass('active');
+                    }
+                } else {
+                    $suggestions.first().addClass('active');
+                }
+                break;
+                
+            case 13: // Enter
+                if ($active.length) {
+                    e.preventDefault();
+                    $active.click();
+                }
+                break;
+                
+            case 27: // Escape
+                hideContactSuggestions($field);
+                break;
+        }
+    });
+    
+    // Highlight active suggestion on hover
+    $(document).on('mouseenter', '.suggestion-item', function() {
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+    });
+    
+    // Hide suggestions when field loses focus (with delay for clicks)
+    $(document).on('blur', '.email-field', function() {
+        var $field = $(this);
+        setTimeout(function() {
+            hideContactSuggestions($field);
+        }, 200);
     });
 });
-
-// Success Modal Functions
-function showSuccessModal() {
-    $('#success-modal').fadeIn(300);
-    
-    // Close modal when clicking outside
-    $('#success-modal').on('click', function(e) {
-        if (e.target === this) {
-            closeSuccessModal();
-        }
-    });
-    
-    // Close modal with Escape key
-    $(document).on('keydown.modal', function(e) {
-        if (e.keyCode === 27) { // Escape key
-            closeSuccessModal();
-        }
-    });
-}
-
-function closeSuccessModal() {
-    $('#success-modal').fadeOut(300);
-    $(document).off('keydown.modal');
-}

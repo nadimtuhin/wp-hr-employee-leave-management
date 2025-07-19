@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="tests/bootstrap-simple.php"
+    backupGlobals="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    verbose="true">
+    
+    <testsuites>
+        <testsuite name="Simple Tests">
+            <file>./tests/simple/SimpleTest.php</file>
+            <file>./tests/simple/JQueryFixTest.php</file>
+            <file>./tests/simple/EmailFieldsTest.php</file>
+        </testsuite>
+        <testsuite name="Integration Tests">
+            <file>./tests/integration/AdminFilteringTest.php</file>
+        </testsuite>
+        <testsuite name="API Tests">
+            <file>./tests/api/FilteringAPITest.php</file>
+        </testsuite>
+    </testsuites>
+    
+    <filter>
+        <whitelist>
+            <file>./wp-employee-leaves.php</file>
+        </whitelist>
+    </filter>
+</phpunit>

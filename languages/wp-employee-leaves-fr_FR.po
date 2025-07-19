@@ -1,0 +1,382 @@
+# French (France) translation for WP Employee Leaves
+# Copyright (C) 2025 WP Employee Leaves
+# This file is distributed under the same license as the WP Employee Leaves package.
+# Translator: Your Name <your.email@example.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Employee Leaves 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-17 12:00+0000\n"
+"PO-Revision-Date: 2025-01-17 12:00+0000\n"
+"Last-Translator: Your Name <your.email@example.com>\n"
+"Language-Team: French (France) <fr@li.org>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Manual\n"
+
+msgid "Employee Leaves"
+msgstr "Congés des Employés"
+
+msgid "Dashboard"
+msgstr "Tableau de Bord"
+
+msgid "Leave Requests"
+msgstr "Demandes de Congé"
+
+msgid "Employees"
+msgstr "Employés"
+
+msgid "Settings"
+msgstr "Paramètres"
+
+msgid "Employee Leaves Dashboard"
+msgstr "Tableau de Bord des Congés des Employés"
+
+msgid "Welcome to Employee Leaves Management"
+msgstr "Bienvenue dans la Gestion des Congés des Employés"
+
+msgid "Manage your employee leave requests efficiently with our comprehensive dashboard. Current year: "
+msgstr "Gérez efficacement les demandes de congé de vos employés avec notre tableau de bord complet. Année actuelle : "
+
+msgid "View All Requests"
+msgstr "Voir Toutes les Demandes"
+
+msgid "Total Requests"
+msgstr "Demandes Totales"
+
+msgid "Pending Approval"
+msgstr "En Attente d'Approbation"
+
+msgid "Approved"
+msgstr "Approuvé"
+
+msgid "Rejected"
+msgstr "Rejeté"
+
+msgid "Pending"
+msgstr "En Attente"
+
+msgid "Recent Leave Requests"
+msgstr "Demandes de Congé Récentes"
+
+msgid "No recent leave requests."
+msgstr "Aucune demande de congé récente."
+
+msgid "Employee"
+msgstr "Employé"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Quick Actions"
+msgstr "Actions Rapides"
+
+msgid "Manage Requests"
+msgstr "Gérer les Demandes"
+
+msgid "Employee Management"
+msgstr "Gestion des Employés"
+
+msgid "System Overview"
+msgstr "Aperçu du Système"
+
+msgid "Total Users"
+msgstr "Utilisateurs Totaux"
+
+msgid "HR Email Configured"
+msgstr "Email RH Configuré"
+
+msgid "HR Email Missing"
+msgstr "Email RH Manquant"
+
+msgid "Notifications Enabled"
+msgstr "Notifications Activées"
+
+msgid "Notifications Disabled"
+msgstr "Notifications Désactivées"
+
+msgid "Configure System"
+msgstr "Configurer le Système"
+
+msgid "Filter by Year:"
+msgstr "Filtrer par Année :"
+
+msgid "Show:"
+msgstr "Afficher :"
+
+msgid "per page"
+msgstr "par page"
+
+msgid "Showing %d-%d of %d requests"
+msgstr "Affichage de %d-%d sur %d demandes"
+
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] "%d élément"
+msgstr[1] "%d éléments"
+
+msgid "Employee ID"
+msgstr "ID Employé"
+
+msgid "Leave Dates"
+msgstr "Dates de Congé"
+
+msgid "Leave Types"
+msgstr "Types de Congé"
+
+msgid "Reason"
+msgstr "Raison"
+
+msgid "Submitted"
+msgstr "Soumis"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "No leave requests found for this year."
+msgstr "Aucune demande de congé trouvée pour cette année."
+
+msgid "Approve"
+msgstr "Approuver"
+
+msgid "Reject"
+msgstr "Rejeter"
+
+msgid "&laquo; Previous"
+msgstr "&laquo; Précédent"
+
+msgid "Next &raquo;"
+msgstr "Suivant &raquo;"
+
+msgid "Manage employee records and leave balances."
+msgstr "Gérer les dossiers des employés et les soldes de congés."
+
+msgid "Employee Leaves Settings"
+msgstr "Paramètres des Congés des Employés"
+
+msgid "General"
+msgstr "Général"
+
+msgid "Email Templates"
+msgstr "Modèles d'Email"
+
+msgid "Page Management"
+msgstr "Gestion des Pages"
+
+msgid "General Settings"
+msgstr "Paramètres Généraux"
+
+msgid "HR Email Address"
+msgstr "Adresse Email RH"
+
+msgid "This email address will receive all leave request notifications."
+msgstr "Cette adresse email recevra toutes les notifications de demandes de congé."
+
+msgid "Email Notifications"
+msgstr "Notifications par Email"
+
+msgid "Enable email notifications"
+msgstr "Activer les notifications par email"
+
+msgid "Master switch for all email notifications. When disabled, no emails will be sent."
+msgstr "Interrupteur principal pour toutes les notifications par email. Lorsqu'il est désactivé, aucun email ne sera envoyé."
+
+msgid "Leave Request Submitted"
+msgstr "Demande de Congé Soumise"
+
+msgid "Send notifications when leave request is submitted"
+msgstr "Envoyer des notifications lorsqu'une demande de congé est soumise"
+
+msgid "Notifies HR, managers, and relievers when a new leave request is submitted."
+msgstr "Notifie les RH, managers et remplaçants lorsqu'une nouvelle demande de congé est soumise."
+
+msgid "Leave Request Approved"
+msgstr "Demande de Congé Approuvée"
+
+msgid "Send notifications when leave request is approved"
+msgstr "Envoyer des notifications lorsqu'une demande de congé est approuvée"
+
+msgid "Notifies employee, managers, and relievers when a leave request is approved."
+msgstr "Notifie l'employé, les managers et les remplaçants lorsqu'une demande de congé est approuvée."
+
+msgid "Leave Request Rejected"
+msgstr "Demande de Congé Rejetée"
+
+msgid "Send notifications when leave request is rejected"
+msgstr "Envoyer des notifications lorsqu'une demande de congé est rejetée"
+
+msgid "Notifies employee when a leave request is rejected."
+msgstr "Notifie l'employé lorsqu'une demande de congé est rejetée."
+
+msgid "Settings saved successfully!"
+msgstr "Paramètres sauvegardés avec succès !"
+
+msgid "Leave Types Management"
+msgstr "Gestion des Types de Congé"
+
+msgid "Leave Type"
+msgstr "Type de Congé"
+
+msgid "Yearly Allocation (Days)"
+msgstr "Allocation Annuelle (Jours)"
+
+msgid "Active"
+msgstr "Actif"
+
+msgid "Sent to HR when a new leave request is submitted"
+msgstr "Envoyé aux RH lorsqu'une nouvelle demande de congé est soumise"
+
+msgid "Sent to employee when their leave request is approved"
+msgstr "Envoyé à l'employé lorsque sa demande de congé est approuvée"
+
+msgid "Sent to employee when their leave request is rejected"
+msgstr "Envoyé à l'employé lorsque sa demande de congé est rejetée"
+
+msgid "Sent to managers when their team member submits a leave request"
+msgstr "Envoyé aux managers lorsqu'un membre de leur équipe soumet une demande de congé"
+
+msgid "Sent to leave relievers when they are assigned to cover someone"
+msgstr "Envoyé aux remplaçants lorsqu'ils sont assignés pour couvrir quelqu'un"
+
+msgid "Use these placeholders in your templates: {{employee_name}}, {{employee_email}}, {{leave_dates}}, {{leave_types}}, {{reason}}, {{manager_emails}}, {{reliever_emails}}, {{status}}, {{approved_date}}"
+msgstr "Utilisez ces espaces réservés dans vos modèles : {{employee_name}}, {{employee_email}}, {{leave_dates}}, {{leave_types}}, {{reason}}, {{manager_emails}}, {{reliever_emails}}, {{status}}, {{approved_date}}"
+
+msgid "Subject"
+msgstr "Sujet"
+
+msgid "Body"
+msgstr "Corps"
+
+msgid "Leave types updated successfully!"
+msgstr "Types de congé mis à jour avec succès !"
+
+msgid "Email templates updated successfully!"
+msgstr "Modèles d'email mis à jour avec succès !"
+
+msgid "Create New Pages"
+msgstr "Créer de Nouvelles Pages"
+
+msgid "Create pages with leave management shortcodes automatically added."
+msgstr "Créer des pages avec des codes courts de gestion des congés automatiquement ajoutés."
+
+msgid "Leave Request Form"
+msgstr "Formulaire de Demande de Congé"
+
+msgid "Create a page where employees can submit leave requests."
+msgstr "Créer une page où les employés peuvent soumettre des demandes de congé."
+
+msgid "Enter page title (e.g., Submit Leave Request)"
+msgstr "Entrez le titre de la page (ex. : Soumettre une Demande de Congé)"
+
+msgid "Create Page"
+msgstr "Créer la Page"
+
+msgid "My Leave Requests"
+msgstr "Mes Demandes de Congé"
+
+msgid "Create a page where employees can view their leave request history."
+msgstr "Créer une page où les employés peuvent consulter leur historique de demandes de congé."
+
+msgid "Enter page title (e.g., My Leave Requests)"
+msgstr "Entrez le titre de la page (ex. : Mes Demandes de Congé)"
+
+# JavaScript strings
+msgid "Please enter a page title"
+msgstr "Veuillez entrer un titre de page"
+
+msgid "Creating..."
+msgstr "Création en cours..."
+
+msgid "Error:"
+msgstr "Erreur :"
+
+msgid "Unknown error occurred"
+msgstr "Une erreur inconnue s'est produite"
+
+msgid "An error occurred while creating the page. Details:"
+msgstr "Une erreur s'est produite lors de la création de la page. Détails :"
+
+msgid "Please select a page"
+msgstr "Veuillez sélectionner une page"
+
+msgid "Adding..."
+msgstr "Ajout en cours..."
+
+msgid "Add Shortcode"
+msgstr "Ajouter le Code Court"
+
+msgid "An error occurred while adding the shortcode."
+msgstr "Une erreur s'est produite lors de l'ajout du code court."
+
+msgid "Are you sure you want to approve this leave request?"
+msgstr "Êtes-vous sûr de vouloir approuver cette demande de congé ?"
+
+msgid "Approving..."
+msgstr "Approbation en cours..."
+
+msgid "Leave request approved successfully!"
+msgstr "Demande de congé approuvée avec succès !"
+
+msgid "Network error occurred while processing the request."
+msgstr "Une erreur réseau s'est produite lors du traitement de la demande."
+
+msgid "Are you sure you want to reject this leave request?"
+msgstr "Êtes-vous sûr de vouloir rejeter cette demande de congé ?"
+
+msgid "Rejecting..."
+msgstr "Rejet en cours..."
+
+msgid "Leave request rejected successfully!"
+msgstr "Demande de congé rejetée avec succès !"
+
+msgid "Invalid request ID."
+msgstr "ID de demande invalide."
+
+msgid "Please fill in all required fields."
+msgstr "Veuillez remplir tous les champs requis."
+
+msgid "Saving..."
+msgstr "Sauvegarde en cours..."
+
+msgid "Copy Shortcode"
+msgstr "Copier le Code Court"
+
+msgid "Copied!"
+msgstr "Copié !"
+
+msgid "Submitting..."
+msgstr "Soumission en cours..."
+
+msgid "Submit Leave Request"
+msgstr "Soumettre la Demande de Congé"
+
+msgid "Duplicate dates found:"
+msgstr "Dates dupliquées trouvées :"
+
+msgid "Please remove duplicate entries."
+msgstr "Veuillez supprimer les entrées dupliquées."
+
+msgid "Please enter your employee ID."
+msgstr "Veuillez entrer votre ID d'employé."
+
+msgid "Please select at least one date and leave type."
+msgstr "Veuillez sélectionner au moins une date et un type de congé."
+
+msgid "Please provide a reason for your leave."
+msgstr "Veuillez fournir une raison pour votre congé."
+
+msgid "Please fix the email validation errors before submitting."
+msgstr "Veuillez corriger les erreurs de validation d'email avant de soumettre."
+
+msgid "An error occurred while submitting your request. Please try again."
+msgstr "Une erreur s'est produite lors de la soumission de votre demande. Veuillez réessayer."
+
+msgid "Invalid email addresses in"
+msgstr "Adresses email invalides dans"

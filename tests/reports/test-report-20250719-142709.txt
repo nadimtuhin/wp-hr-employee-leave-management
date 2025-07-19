@@ -1,0 +1,12 @@
+WP Employee Leaves Plugin - Test Report
+Generated: Sat Jul 19 14:27:09 +06 2025
+Plugin Version: 1.3.0
+WordPress Environment: /Users/nadimtuhin/Local Sites/wptest/app/public
+
+Test Results:
+- PHPUnit Tests: FAILED
+- JavaScript Tests: FAILED
+- Security Checks: PASSED
+- Code Quality: PASSED
+
+Coverage Reports:

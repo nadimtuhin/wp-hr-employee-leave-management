@@ -1,0 +1,382 @@
+# Spanish (Spain) translation for WP Employee Leaves
+# Copyright (C) 2025 WP Employee Leaves
+# This file is distributed under the same license as the WP Employee Leaves package.
+# Translator: Your Name <your.email@example.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Employee Leaves 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-17 12:00+0000\n"
+"PO-Revision-Date: 2025-01-17 12:00+0000\n"
+"Last-Translator: Your Name <your.email@example.com>\n"
+"Language-Team: Spanish (Spain) <es@li.org>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Manual\n"
+
+msgid "Employee Leaves"
+msgstr "Permisos de Empleados"
+
+msgid "Dashboard"
+msgstr "Panel de Control"
+
+msgid "Leave Requests"
+msgstr "Solicitudes de Permiso"
+
+msgid "Employees"
+msgstr "Empleados"
+
+msgid "Settings"
+msgstr "Configuración"
+
+msgid "Employee Leaves Dashboard"
+msgstr "Panel de Control de Permisos de Empleados"
+
+msgid "Welcome to Employee Leaves Management"
+msgstr "Bienvenido a la Gestión de Permisos de Empleados"
+
+msgid "Manage your employee leave requests efficiently with our comprehensive dashboard. Current year: "
+msgstr "Gestiona las solicitudes de permiso de tus empleados de manera eficiente con nuestro panel integral. Año actual: "
+
+msgid "View All Requests"
+msgstr "Ver Todas las Solicitudes"
+
+msgid "Total Requests"
+msgstr "Solicitudes Totales"
+
+msgid "Pending Approval"
+msgstr "Pendiente de Aprobación"
+
+msgid "Approved"
+msgstr "Aprobado"
+
+msgid "Rejected"
+msgstr "Rechazado"
+
+msgid "Pending"
+msgstr "Pendiente"
+
+msgid "Recent Leave Requests"
+msgstr "Solicitudes de Permiso Recientes"
+
+msgid "No recent leave requests."
+msgstr "No hay solicitudes de permiso recientes."
+
+msgid "Employee"
+msgstr "Empleado"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Quick Actions"
+msgstr "Acciones Rápidas"
+
+msgid "Manage Requests"
+msgstr "Gestionar Solicitudes"
+
+msgid "Employee Management"
+msgstr "Gestión de Empleados"
+
+msgid "System Overview"
+msgstr "Resumen del Sistema"
+
+msgid "Total Users"
+msgstr "Usuarios Totales"
+
+msgid "HR Email Configured"
+msgstr "Email de RRHH Configurado"
+
+msgid "HR Email Missing"
+msgstr "Email de RRHH Faltante"
+
+msgid "Notifications Enabled"
+msgstr "Notificaciones Habilitadas"
+
+msgid "Notifications Disabled"
+msgstr "Notificaciones Deshabilitadas"
+
+msgid "Configure System"
+msgstr "Configurar Sistema"
+
+msgid "Filter by Year:"
+msgstr "Filtrar por Año:"
+
+msgid "Show:"
+msgstr "Mostrar:"
+
+msgid "per page"
+msgstr "por página"
+
+msgid "Showing %d-%d of %d requests"
+msgstr "Mostrando %d-%d de %d solicitudes"
+
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] "%d elemento"
+msgstr[1] "%d elementos"
+
+msgid "Employee ID"
+msgstr "ID del Empleado"
+
+msgid "Leave Dates"
+msgstr "Fechas de Permiso"
+
+msgid "Leave Types"
+msgstr "Tipos de Permiso"
+
+msgid "Reason"
+msgstr "Razón"
+
+msgid "Submitted"
+msgstr "Enviado"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "No leave requests found for this year."
+msgstr "No se encontraron solicitudes de permiso para este año."
+
+msgid "Approve"
+msgstr "Aprobar"
+
+msgid "Reject"
+msgstr "Rechazar"
+
+msgid "&laquo; Previous"
+msgstr "&laquo; Anterior"
+
+msgid "Next &raquo;"
+msgstr "Siguiente &raquo;"
+
+msgid "Manage employee records and leave balances."
+msgstr "Gestionar registros de empleados y balances de permisos."
+
+msgid "Employee Leaves Settings"
+msgstr "Configuración de Permisos de Empleados"
+
+msgid "General"
+msgstr "General"
+
+msgid "Email Templates"
+msgstr "Plantillas de Email"
+
+msgid "Page Management"
+msgstr "Gestión de Páginas"
+
+msgid "General Settings"
+msgstr "Configuración General"
+
+msgid "HR Email Address"
+msgstr "Dirección de Email de RRHH"
+
+msgid "This email address will receive all leave request notifications."
+msgstr "Esta dirección de email recibirá todas las notificaciones de solicitudes de permiso."
+
+msgid "Email Notifications"
+msgstr "Notificaciones por Email"
+
+msgid "Enable email notifications"
+msgstr "Habilitar notificaciones por email"
+
+msgid "Master switch for all email notifications. When disabled, no emails will be sent."
+msgstr "Interruptor principal para todas las notificaciones por email. Cuando está deshabilitado, no se enviarán emails."
+
+msgid "Leave Request Submitted"
+msgstr "Solicitud de Permiso Enviada"
+
+msgid "Send notifications when leave request is submitted"
+msgstr "Enviar notificaciones cuando se envíe una solicitud de permiso"
+
+msgid "Notifies HR, managers, and relievers when a new leave request is submitted."
+msgstr "Notifica a RRHH, gerentes y sustitutos cuando se envía una nueva solicitud de permiso."
+
+msgid "Leave Request Approved"
+msgstr "Solicitud de Permiso Aprobada"
+
+msgid "Send notifications when leave request is approved"
+msgstr "Enviar notificaciones cuando se apruebe una solicitud de permiso"
+
+msgid "Notifies employee, managers, and relievers when a leave request is approved."
+msgstr "Notifica al empleado, gerentes y sustitutos cuando se aprueba una solicitud de permiso."
+
+msgid "Leave Request Rejected"
+msgstr "Solicitud de Permiso Rechazada"
+
+msgid "Send notifications when leave request is rejected"
+msgstr "Enviar notificaciones cuando se rechace una solicitud de permiso"
+
+msgid "Notifies employee when a leave request is rejected."
+msgstr "Notifica al empleado cuando se rechaza una solicitud de permiso."
+
+msgid "Settings saved successfully!"
+msgstr "¡Configuración guardada exitosamente!"
+
+msgid "Leave Types Management"
+msgstr "Gestión de Tipos de Permiso"
+
+msgid "Leave Type"
+msgstr "Tipo de Permiso"
+
+msgid "Yearly Allocation (Days)"
+msgstr "Asignación Anual (Días)"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Sent to HR when a new leave request is submitted"
+msgstr "Enviado a RRHH cuando se envía una nueva solicitud de permiso"
+
+msgid "Sent to employee when their leave request is approved"
+msgstr "Enviado al empleado cuando su solicitud de permiso es aprobada"
+
+msgid "Sent to employee when their leave request is rejected"
+msgstr "Enviado al empleado cuando su solicitud de permiso es rechazada"
+
+msgid "Sent to managers when their team member submits a leave request"
+msgstr "Enviado a gerentes cuando un miembro de su equipo envía una solicitud de permiso"
+
+msgid "Sent to leave relievers when they are assigned to cover someone"
+msgstr "Enviado a sustitutos cuando se les asigna cubrir a alguien"
+
+msgid "Use these placeholders in your templates: {{employee_name}}, {{employee_email}}, {{leave_dates}}, {{leave_types}}, {{reason}}, {{manager_emails}}, {{reliever_emails}}, {{status}}, {{approved_date}}"
+msgstr "Use estos marcadores en sus plantillas: {{employee_name}}, {{employee_email}}, {{leave_dates}}, {{leave_types}}, {{reason}}, {{manager_emails}}, {{reliever_emails}}, {{status}}, {{approved_date}}"
+
+msgid "Subject"
+msgstr "Asunto"
+
+msgid "Body"
+msgstr "Cuerpo"
+
+msgid "Leave types updated successfully!"
+msgstr "¡Tipos de permiso actualizados exitosamente!"
+
+msgid "Email templates updated successfully!"
+msgstr "¡Plantillas de email actualizadas exitosamente!"
+
+msgid "Create New Pages"
+msgstr "Crear Nuevas Páginas"
+
+msgid "Create pages with leave management shortcodes automatically added."
+msgstr "Crear páginas con códigos cortos de gestión de permisos agregados automáticamente."
+
+msgid "Leave Request Form"
+msgstr "Formulario de Solicitud de Permiso"
+
+msgid "Create a page where employees can submit leave requests."
+msgstr "Crear una página donde los empleados puedan enviar solicitudes de permiso."
+
+msgid "Enter page title (e.g., Submit Leave Request)"
+msgstr "Ingrese el título de la página (ej., Enviar Solicitud de Permiso)"
+
+msgid "Create Page"
+msgstr "Crear Página"
+
+msgid "My Leave Requests"
+msgstr "Mis Solicitudes de Permiso"
+
+msgid "Create a page where employees can view their leave request history."
+msgstr "Crear una página donde los empleados puedan ver su historial de solicitudes de permiso."
+
+msgid "Enter page title (e.g., My Leave Requests)"
+msgstr "Ingrese el título de la página (ej., Mis Solicitudes de Permiso)"
+
+# JavaScript strings
+msgid "Please enter a page title"
+msgstr "Por favor ingrese un título de página"
+
+msgid "Creating..."
+msgstr "Creando..."
+
+msgid "Error:"
+msgstr "Error:"
+
+msgid "Unknown error occurred"
+msgstr "Ocurrió un error desconocido"
+
+msgid "An error occurred while creating the page. Details:"
+msgstr "Ocurrió un error al crear la página. Detalles:"
+
+msgid "Please select a page"
+msgstr "Por favor seleccione una página"
+
+msgid "Adding..."
+msgstr "Agregando..."
+
+msgid "Add Shortcode"
+msgstr "Agregar Código Corto"
+
+msgid "An error occurred while adding the shortcode."
+msgstr "Ocurrió un error al agregar el código corto."
+
+msgid "Are you sure you want to approve this leave request?"
+msgstr "¿Está seguro de que desea aprobar esta solicitud de permiso?"
+
+msgid "Approving..."
+msgstr "Aprobando..."
+
+msgid "Leave request approved successfully!"
+msgstr "¡Solicitud de permiso aprobada exitosamente!"
+
+msgid "Network error occurred while processing the request."
+msgstr "Ocurrió un error de red al procesar la solicitud."
+
+msgid "Are you sure you want to reject this leave request?"
+msgstr "¿Está seguro de que desea rechazar esta solicitud de permiso?"
+
+msgid "Rejecting..."
+msgstr "Rechazando..."
+
+msgid "Leave request rejected successfully!"
+msgstr "¡Solicitud de permiso rechazada exitosamente!"
+
+msgid "Invalid request ID."
+msgstr "ID de solicitud inválido."
+
+msgid "Please fill in all required fields."
+msgstr "Por favor complete todos los campos requeridos."
+
+msgid "Saving..."
+msgstr "Guardando..."
+
+msgid "Copy Shortcode"
+msgstr "Copiar Código Corto"
+
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+msgid "Submitting..."
+msgstr "Enviando..."
+
+msgid "Submit Leave Request"
+msgstr "Enviar Solicitud de Permiso"
+
+msgid "Duplicate dates found:"
+msgstr "Fechas duplicadas encontradas:"
+
+msgid "Please remove duplicate entries."
+msgstr "Por favor elimine las entradas duplicadas."
+
+msgid "Please enter your employee ID."
+msgstr "Por favor ingrese su ID de empleado."
+
+msgid "Please select at least one date and leave type."
+msgstr "Por favor seleccione al menos una fecha y tipo de permiso."
+
+msgid "Please provide a reason for your leave."
+msgstr "Por favor proporcione una razón para su permiso."
+
+msgid "Please fix the email validation errors before submitting."
+msgstr "Por favor corrija los errores de validación de email antes de enviar."
+
+msgid "An error occurred while submitting your request. Please try again."
+msgstr "Ocurrió un error al enviar su solicitud. Por favor intente nuevamente."
+
+msgid "Invalid email addresses in"
+msgstr "Direcciones de email inválidas en"

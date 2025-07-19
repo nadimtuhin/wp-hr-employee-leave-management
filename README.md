@@ -140,6 +140,22 @@ wp-employee-leaves/
 - `employee_leave_form` - Shortcode hook
 - Standard WordPress activation/deactivation hooks
 
+### Security Features
+- **XSS Protection** - All user input properly sanitized and output escaped
+- **Nonce Verification** - All forms and AJAX requests protected with WordPress nonces
+- **Capability Checks** - Role-based access control with `manage_options` capability
+- **SQL Injection Prevention** - All database queries use prepared statements
+- **CSRF Protection** - Cross-site request forgery protection on all admin actions
+- **Input Validation** - Comprehensive server-side validation for all user inputs
+- **Secure Headers** - Proper security headers for admin pages
+
+### Internationalization
+- **Text Domain**: `wp-employee-leaves`
+- **Translation Ready** - All strings properly internationalized
+- **Included Languages**: Spanish (es_ES), French (fr_FR)
+- **JavaScript Localization** - Frontend and admin JavaScript strings localized
+- **Translation Files**: .pot, .po, and .mo files included in `/languages/` directory
+
 ## Troubleshooting
 
 ### Page Creation Issues
@@ -206,3 +222,12 @@ The test script includes:
   - Added admin controls for email notification settings
   - Enhanced admin dashboard with dual page creation
   - Improved notification logging and tracking
+
+- **1.3.0** - Security Hardening and Internationalization
+  - Comprehensive XSS protection and input sanitization
+  - Enhanced nonce verification for all AJAX handlers
+  - Removed debug statements and console.log calls
+  - Full internationalization support with translation files
+  - Added Spanish (es_ES) and French (fr_FR) translations
+  - Security audit and vulnerability remediation
+  - Improved code quality and WordPress standards compliance

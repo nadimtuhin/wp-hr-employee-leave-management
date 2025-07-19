@@ -1,4 +1,9 @@
 jQuery(document).ready(function($) {
+    // Helper function to escape HTML
+    function escapeHtml(text) {
+        return $('<div>').text(text).html();
+    }
+    
     // Page creation functionality
     $('#create-leave-page').on('click', function() {
         var $button = $(this);
@@ -11,10 +16,6 @@ jQuery(document).ready(function($) {
         
         $button.prop('disabled', true).text('Creating...');
         
-        // Debug logging
-        console.log('Creating page with title:', pageTitle);
-        console.log('AJAX URL:', ajaxurl);
-        console.log('Nonce:', wp_employee_leaves_admin.nonce);
         
         $.ajax({
             url: wp_employee_leaves_admin.ajax_url || ajaxurl,
@@ -26,22 +27,19 @@ jQuery(document).ready(function($) {
                 nonce: wp_employee_leaves_admin.nonce
             },
             success: function(response) {
-                console.log('AJAX Response:', response);
                 
                 if (response && response.success) {
-                    $('#page-creation-result').html('<div class="notice notice-success"><p>' + response.data.message + ' <a href="' + response.data.edit_url + '" target="_blank">Edit Page</a> | <a href="' + response.data.view_url + '" target="_blank">View Page</a></p></div>');
-                    $('#leave-page-select').append('<option value="' + response.data.page_id + '">' + pageTitle + '</option>');
+                    $('#page-creation-result').html('<div class="notice notice-success"><p>' + escapeHtml(response.data.message) + ' <a href="' + escapeHtml(response.data.edit_url) + '" target="_blank">Edit Page</a> | <a href="' + escapeHtml(response.data.view_url) + '" target="_blank">View Page</a></p></div>');
+                    $('#leave-page-select').append('<option value="' + escapeHtml(response.data.page_id) + '">' + escapeHtml(pageTitle) + '</option>');
                     $('#leave-page-title').val(''); // Clear the input
                 } else {
                     var errorMsg = response && response.data ? response.data : 'Unknown error occurred';
-                    $('#page-creation-result').html('<div class="notice notice-error"><p>Error: ' + errorMsg + '</p></div>');
+                    $('#page-creation-result').html('<div class="notice notice-error"><p>Error: ' + escapeHtml(errorMsg) + '</p></div>');
                 }
                 $button.text('Create Page');
             },
             error: function(xhr, status, error) {
-                console.log('AJAX Error:', xhr, status, error);
-                console.log('Response Text:', xhr.responseText);
-                $('#page-creation-result').html('<div class="notice notice-error"><p>An error occurred while creating the page. Details: ' + error + '</p></div>');
+                $('#page-creation-result').html('<div class="notice notice-error"><p>An error occurred while creating the page. Details: ' + escapeHtml(error) + '</p></div>');
                 $button.text('Create Page');
             },
             complete: function() {
@@ -73,10 +71,10 @@ jQuery(document).ready(function($) {
             },
             success: function(response) {
                 if (response.success) {
-                    $('#page-creation-result').html('<div class="notice notice-success"><p>' + response.data.message + ' <a href="' + response.data.edit_url + '" target="_blank">Edit Page</a> | <a href="' + response.data.view_url + '" target="_blank">View Page</a></p></div>');
+                    $('#page-creation-result').html('<div class="notice notice-success"><p>' + escapeHtml(response.data.message) + ' <a href="' + escapeHtml(response.data.edit_url) + '" target="_blank">Edit Page</a> | <a href="' + escapeHtml(response.data.view_url) + '" target="_blank">View Page</a></p></div>');
                     $('#leave-page-select').val(''); // Clear the selection
                 } else {
-                    $('#page-creation-result').html('<div class="notice notice-error"><p>Error: ' + response.data + '</p></div>');
+                    $('#page-creation-result').html('<div class="notice notice-error"><p>Error: ' + escapeHtml(response.data) + '</p></div>');
                 }
                 $button.text('Add Shortcode');
             },
@@ -120,7 +118,6 @@ jQuery(document).ready(function($) {
                     nonce: wp_employee_leaves_admin.approve_nonce
                 },
                 success: function(response) {
-                    console.log('Approve response:', response);
                     
                     if (response && response.success) {
                         // Update status cell with new styling
@@ -138,15 +135,14 @@ jQuery(document).ready(function($) {
                             $row.removeClass('success-highlight');
                         }, 2000);
                         
-                        showNotice(response.data.message || 'Leave request approved successfully!', 'success');
+                        showNotice(escapeHtml(response.data.message || 'Leave request approved successfully!'), 'success');
                     } else {
                         var errorMsg = response && response.data ? response.data : 'Unknown error occurred';
-                        showNotice('Error: ' + errorMsg, 'error');
+                        showNotice('Error: ' + escapeHtml(errorMsg), 'error');
                         resetButton($button, 'Approve');
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.log('AJAX Error:', xhr.responseText, status, error);
                     showNotice('Network error occurred while processing the request.', 'error');
                     resetButton($button, 'Approve');
                 },
@@ -186,7 +182,6 @@ jQuery(document).ready(function($) {
                     nonce: wp_employee_leaves_admin.reject_nonce
                 },
                 success: function(response) {
-                    console.log('Reject response:', response);
                     
                     if (response && response.success) {
                         // Update status cell with new styling
@@ -204,15 +199,14 @@ jQuery(document).ready(function($) {
                             $row.removeClass('warning-highlight');
                         }, 2000);
                         
-                        showNotice(response.data.message || 'Leave request rejected successfully!', 'success');
+                        showNotice(escapeHtml(response.data.message || 'Leave request rejected successfully!'), 'success');
                     } else {
                         var errorMsg = response && response.data ? response.data : 'Unknown error occurred';
-                        showNotice('Error: ' + errorMsg, 'error');
+                        showNotice('Error: ' + escapeHtml(errorMsg), 'error');
                         resetButton($button, 'Reject');
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.log('AJAX Error:', xhr.responseText, status, error);
                     showNotice('Network error occurred while processing the request.', 'error');
                     resetButton($button, 'Reject');
                 },
@@ -304,9 +298,6 @@ jQuery(document).ready(function($) {
         $button.prop('disabled', true).text('Creating...');
         
         // Debug logging
-        console.log('Creating my requests page with title:', pageTitle);
-        console.log('AJAX URL:', ajaxurl);
-        console.log('Nonce:', wp_employee_leaves_admin.nonce);
         
         $.ajax({
             url: wp_employee_leaves_admin.ajax_url || ajaxurl,
@@ -318,22 +309,19 @@ jQuery(document).ready(function($) {
                 nonce: wp_employee_leaves_admin.nonce
             },
             success: function(response) {
-                console.log('AJAX Response:', response);
                 
                 if (response && response.success) {
-                    $('#page-creation-result').html('<div class="notice notice-success"><p>' + response.data.message + ' <a href="' + response.data.edit_url + '" target="_blank">Edit Page</a> | <a href="' + response.data.view_url + '" target="_blank">View Page</a></p></div>');
-                    $('#leave-page-select').append('<option value="' + response.data.page_id + '">' + pageTitle + '</option>');
+                    $('#page-creation-result').html('<div class="notice notice-success"><p>' + escapeHtml(response.data.message) + ' <a href="' + escapeHtml(response.data.edit_url) + '" target="_blank">Edit Page</a> | <a href="' + escapeHtml(response.data.view_url) + '" target="_blank">View Page</a></p></div>');
+                    $('#leave-page-select').append('<option value="' + escapeHtml(response.data.page_id) + '">' + escapeHtml(pageTitle) + '</option>');
                     $('#my-requests-page-title').val(''); // Clear the input
                 } else {
                     var errorMsg = response && response.data ? response.data : 'Unknown error occurred';
-                    $('#page-creation-result').html('<div class="notice notice-error"><p>Error: ' + errorMsg + '</p></div>');
+                    $('#page-creation-result').html('<div class="notice notice-error"><p>Error: ' + escapeHtml(errorMsg) + '</p></div>');
                 }
                 $button.text('Create Page');
             },
             error: function(xhr, status, error) {
-                console.log('AJAX Error:', xhr, status, error);
-                console.log('Response Text:', xhr.responseText);
-                $('#page-creation-result').html('<div class="notice notice-error"><p>An error occurred while creating the page. Details: ' + error + '</p></div>');
+                $('#page-creation-result').html('<div class="notice notice-error"><p>An error occurred while creating the page. Details: ' + escapeHtml(error) + '</p></div>');
                 $button.text('Create Page');
             },
             complete: function() {
@@ -379,7 +367,6 @@ jQuery(document).ready(function($) {
         clearTimeout(autoSaveTimeout);
         autoSaveTimeout = setTimeout(function() {
             // Auto-save functionality can be added here
-            console.log('Auto-saving email template...');
         }, 3000);
     });
     
@@ -392,7 +379,8 @@ jQuery(document).ready(function($) {
     '</style>').appendTo('head');
     
     // Per-page selector functionality
-    window.changePerPage = function(perPage) {
+    $('#per-page-select').on('change', function() {
+        var perPage = $(this).val();
         var url = new URL(window.location);
         url.searchParams.set('per_page', perPage);
         url.searchParams.delete('paged'); // Reset to first page when changing per_page
@@ -404,14 +392,20 @@ jQuery(document).ready(function($) {
         }
         
         // Show loading feedback
-        var selectElement = document.getElementById('per-page-select');
-        if (selectElement) {
-            selectElement.disabled = true;
-            selectElement.style.opacity = '0.6';
-        }
+        $(this).prop('disabled', true).css('opacity', '0.6');
         
         window.location.href = url.toString();
-    };
+    });
+    
+    // Year selector functionality
+    $('#year-select').on('change', function() {
+        var selectedUrl = $(this).val();
+        if (selectedUrl) {
+            // Show loading feedback
+            $(this).prop('disabled', true).css('opacity', '0.6');
+            window.location.href = selectedUrl;
+        }
+    });
 });
 
 // Add error styling

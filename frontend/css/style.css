@@ -245,6 +245,77 @@
     box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
 }
 
+/* Email Fields Container Styles */
+.email-fields-container {
+    margin-bottom: 10px;
+}
+
+.email-field-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.email-field {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.email-field:focus {
+    outline: none;
+    border-color: #007cba;
+    box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+}
+
+.email-field.valid-email {
+    border-color: #28a745;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+
+.email-field.invalid-email {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
+}
+
+.remove-email-field {
+    padding: 6px 12px;
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    transition: background 0.2s;
+    min-width: 35px;
+}
+
+.remove-email-field:hover {
+    background: #c82333;
+}
+
+.add-email-field {
+    padding: 8px 16px;
+    background: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    margin-top: 5px;
+}
+
+.add-email-field:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
 /* Hide balance info by default */
 #leave-balance-info {
     display: none !important;
@@ -646,4 +717,56 @@
         padding: 6px 10px;
         font-size: 12px;
     }
+}
+
+/* Contact Suggestions Dropdown */
+.contact-suggestions {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+.suggestion-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+    color: #333;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+    background-color: #f8f9fa;
+    color: #007cba;
+}
+
+.suggestion-item:active {
+    background-color: #e9ecef;
+}
+
+/* Scrollbar styling for suggestions */
+.contact-suggestions::-webkit-scrollbar {
+    width: 6px;
+}
+
+.contact-suggestions::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.contact-suggestions::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.contact-suggestions::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
 }

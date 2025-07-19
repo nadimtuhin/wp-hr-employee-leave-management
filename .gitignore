@@ -29,6 +29,8 @@ yarn-error.log
 .env.development.local
 .env.test.local
 .env.production.local
+test-curl.sh
+DEVELOPMENT_PLAN.md
 
 # OS generated files
 Thumbs.db

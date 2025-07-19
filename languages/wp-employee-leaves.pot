@@ -1,0 +1,569 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Employee Leaves 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-17 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Manual\n"
+
+#: wp-employee-leaves.php:67
+#: wp-employee-leaves.php:68
+msgid "Employee Leaves"
+msgstr ""
+
+#: wp-employee-leaves.php:78
+#: wp-employee-leaves.php:79
+msgid "Dashboard"
+msgstr ""
+
+#: wp-employee-leaves.php:87
+#: wp-employee-leaves.php:88
+msgid "Leave Requests"
+msgstr ""
+
+#: wp-employee-leaves.php:96
+#: wp-employee-leaves.php:97
+msgid "Employees"
+msgstr ""
+
+#: wp-employee-leaves.php:105
+#: wp-employee-leaves.php:106
+msgid "Settings"
+msgstr ""
+
+#: wp-employee-leaves.php:169
+msgid "Employee Leaves Dashboard"
+msgstr ""
+
+#: wp-employee-leaves.php:176
+msgid "Welcome to Employee Leaves Management"
+msgstr ""
+
+#: wp-employee-leaves.php:178
+msgid "Manage your employee leave requests efficiently with our comprehensive dashboard. Current year: "
+msgstr ""
+
+#: wp-employee-leaves.php:181
+#: wp-employee-leaves.php:240
+msgid "View All Requests"
+msgstr ""
+
+#: wp-employee-leaves.php:184
+#: wp-employee-leaves.php:257
+msgid "Settings"
+msgstr ""
+
+#: wp-employee-leaves.php:193
+msgid "Total Requests"
+msgstr ""
+
+#: wp-employee-leaves.php:197
+msgid "Pending Approval"
+msgstr ""
+
+#: wp-employee-leaves.php:201
+msgid "Approved"
+msgstr ""
+
+#: wp-employee-leaves.php:205
+msgid "Rejected"
+msgstr ""
+
+#: wp-employee-leaves.php:71
+msgid "Pending"
+msgstr ""
+
+#: wp-employee-leaves.php:73
+msgid "Approved"
+msgstr ""
+
+#: wp-employee-leaves.php:75
+msgid "Rejected"
+msgstr ""
+
+#: wp-employee-leaves.php:211
+msgid "Recent Leave Requests"
+msgstr ""
+
+#: wp-employee-leaves.php:214
+msgid "No recent leave requests."
+msgstr ""
+
+#: wp-employee-leaves.php:219
+#: wp-employee-leaves.php:391
+msgid "Employee"
+msgstr ""
+
+#: wp-employee-leaves.php:220
+#: wp-employee-leaves.php:396
+msgid "Status"
+msgstr ""
+
+#: wp-employee-leaves.php:221
+msgid "Date"
+msgstr ""
+
+#: wp-employee-leaves.php:248
+msgid "Quick Actions"
+msgstr ""
+
+#: wp-employee-leaves.php:253
+msgid "Manage Requests"
+msgstr ""
+
+#: wp-employee-leaves.php:261
+msgid "Employee Management"
+msgstr ""
+
+#: wp-employee-leaves.php:268
+msgid "System Overview"
+msgstr ""
+
+#: wp-employee-leaves.php:279
+msgid "Total Users"
+msgstr ""
+
+#: wp-employee-leaves.php:285
+msgid "HR Email Configured"
+msgstr ""
+
+#: wp-employee-leaves.php:285
+msgid "HR Email Missing"
+msgstr ""
+
+#: wp-employee-leaves.php:291
+msgid "Notifications Enabled"
+msgstr ""
+
+#: wp-employee-leaves.php:291
+msgid "Notifications Disabled"
+msgstr ""
+
+#: wp-employee-leaves.php:298
+msgid "Configure System"
+msgstr ""
+
+#: wp-employee-leaves.php:347
+msgid "Leave Requests"
+msgstr ""
+
+#: wp-employee-leaves.php:353
+msgid "Filter by Year:"
+msgstr ""
+
+#: wp-employee-leaves.php:363
+msgid "Show:"
+msgstr ""
+
+#: wp-employee-leaves.php:367
+msgid "per page"
+msgstr ""
+
+#: wp-employee-leaves.php:378
+msgid "Showing %d-%d of %d requests"
+msgstr ""
+
+#: wp-employee-leaves.php:484
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: wp-employee-leaves.php:392
+msgid "Employee ID"
+msgstr ""
+
+#: wp-employee-leaves.php:393
+msgid "Leave Dates"
+msgstr ""
+
+#: wp-employee-leaves.php:394
+msgid "Leave Types"
+msgstr ""
+
+#: wp-employee-leaves.php:395
+msgid "Reason"
+msgstr ""
+
+#: wp-employee-leaves.php:397
+msgid "Submitted"
+msgstr ""
+
+#: wp-employee-leaves.php:398
+msgid "Actions"
+msgstr ""
+
+#: wp-employee-leaves.php:404
+msgid "No leave requests found for this year."
+msgstr ""
+
+#: wp-employee-leaves.php:448
+msgid "Approve"
+msgstr ""
+
+#: wp-employee-leaves.php:452
+msgid "Reject"
+msgstr ""
+
+#: wp-employee-leaves.php:471
+msgid "&laquo; Previous"
+msgstr ""
+
+#: wp-employee-leaves.php:472
+msgid "Next &raquo;"
+msgstr ""
+
+#: wp-employee-leaves.php:524
+msgid "Employees"
+msgstr ""
+
+#: wp-employee-leaves.php:525
+msgid "Manage employee records and leave balances."
+msgstr ""
+
+#: wp-employee-leaves.php:539
+msgid "Employee Leaves Settings"
+msgstr ""
+
+#: wp-employee-leaves.php:543
+msgid "General"
+msgstr ""
+
+#: wp-employee-leaves.php:546
+msgid "Leave Types"
+msgstr ""
+
+#: wp-employee-leaves.php:549
+msgid "Email Templates"
+msgstr ""
+
+#: wp-employee-leaves.php:552
+msgid "Page Management"
+msgstr ""
+
+#: wp-employee-leaves.php:561
+msgid "General Settings"
+msgstr ""
+
+#: wp-employee-leaves.php:566
+msgid "HR Email Address"
+msgstr ""
+
+#: wp-employee-leaves.php:570
+msgid "This email address will receive all leave request notifications."
+msgstr ""
+
+#: wp-employee-leaves.php:575
+#: wp-employee-leaves.php:578
+msgid "Email Notifications"
+msgstr ""
+
+#: wp-employee-leaves.php:583
+msgid "Enable email notifications"
+msgstr ""
+
+#: wp-employee-leaves.php:585
+msgid "Master switch for all email notifications. When disabled, no emails will be sent."
+msgstr ""
+
+#: wp-employee-leaves.php:590
+msgid "Leave Request Submitted"
+msgstr ""
+
+#: wp-employee-leaves.php:595
+msgid "Send notifications when leave request is submitted"
+msgstr ""
+
+#: wp-employee-leaves.php:597
+msgid "Notifies HR, managers, and relievers when a new leave request is submitted."
+msgstr ""
+
+#: wp-employee-leaves.php:602
+msgid "Leave Request Approved"
+msgstr ""
+
+#: wp-employee-leaves.php:607
+msgid "Send notifications when leave request is approved"
+msgstr ""
+
+#: wp-employee-leaves.php:609
+msgid "Notifies employee, managers, and relievers when a leave request is approved."
+msgstr ""
+
+#: wp-employee-leaves.php:614
+msgid "Leave Request Rejected"
+msgstr ""
+
+#: wp-employee-leaves.php:619
+msgid "Send notifications when leave request is rejected"
+msgstr ""
+
+#: wp-employee-leaves.php:621
+msgid "Notifies employee when a leave request is rejected."
+msgstr ""
+
+#: wp-employee-leaves.php:668
+msgid "Settings saved successfully!"
+msgstr ""
+
+#: wp-employee-leaves.php:684
+msgid "Leave Types Management"
+msgstr ""
+
+#: wp-employee-leaves.php:689
+msgid "Leave Type"
+msgstr ""
+
+#: wp-employee-leaves.php:690
+msgid "Yearly Allocation (Days)"
+msgstr ""
+
+#: wp-employee-leaves.php:691
+msgid "Active"
+msgstr ""
+
+#: wp-employee-leaves.php:722
+msgid "Sent to HR when a new leave request is submitted"
+msgstr ""
+
+#: wp-employee-leaves.php:723
+msgid "Sent to employee when their leave request is approved"
+msgstr ""
+
+#: wp-employee-leaves.php:724
+msgid "Sent to employee when their leave request is rejected"
+msgstr ""
+
+#: wp-employee-leaves.php:725
+msgid "Sent to managers when their team member submits a leave request"
+msgstr ""
+
+#: wp-employee-leaves.php:726
+msgid "Sent to leave relievers when they are assigned to cover someone"
+msgstr ""
+
+#: wp-employee-leaves.php:729
+msgid "Email Templates"
+msgstr ""
+
+#: wp-employee-leaves.php:730
+msgid "Use these placeholders in your templates: {{employee_name}}, {{employee_email}}, {{leave_dates}}, {{leave_types}}, {{reason}}, {{manager_emails}}, {{reliever_emails}}, {{status}}, {{approved_date}}"
+msgstr ""
+
+#: wp-employee-leaves.php:740
+msgid "Subject"
+msgstr ""
+
+#: wp-employee-leaves.php:748
+msgid "Body"
+msgstr ""
+
+#: wp-employee-leaves.php:756
+msgid "Active"
+msgstr ""
+
+#: wp-employee-leaves.php:802
+msgid "Leave types updated successfully!"
+msgstr ""
+
+#: wp-employee-leaves.php:824
+msgid "Email templates updated successfully!"
+msgstr ""
+
+#: wp-employee-leaves.php:830
+msgid "Page Management"
+msgstr ""
+
+#: wp-employee-leaves.php:833
+msgid "Create New Pages"
+msgstr ""
+
+#: wp-employee-leaves.php:834
+msgid "Create pages with leave management shortcodes automatically added."
+msgstr ""
+
+#: wp-employee-leaves.php:838
+msgid "Leave Request Form"
+msgstr ""
+
+#: wp-employee-leaves.php:839
+msgid "Create a page where employees can submit leave requests."
+msgstr ""
+
+#: wp-employee-leaves.php:841
+msgid "Enter page title (e.g., Submit Leave Request)"
+msgstr ""
+
+#: wp-employee-leaves.php:843
+msgid "Create Page"
+msgstr ""
+
+#: wp-employee-leaves.php:849
+msgid "My Leave Requests"
+msgstr ""
+
+#: wp-employee-leaves.php:850
+msgid "Create a page where employees can view their leave request history."
+msgstr ""
+
+#: wp-employee-leaves.php:852
+msgid "Enter page title (e.g., My Leave Requests)"
+msgstr ""
+
+# JavaScript strings that need internationalization
+#: wp-employee-leaves.php:140
+msgid "Please enter a page title"
+msgstr ""
+
+#: wp-employee-leaves.php:141
+msgid "Creating..."
+msgstr ""
+
+#: wp-employee-leaves.php:142
+msgid "Error:"
+msgstr ""
+
+#: wp-employee-leaves.php:143
+msgid "Unknown error occurred"
+msgstr ""
+
+#: wp-employee-leaves.php:144
+msgid "Create Page"
+msgstr ""
+
+#: wp-employee-leaves.php:145
+msgid "An error occurred while creating the page. Details:"
+msgstr ""
+
+#: wp-employee-leaves.php:146
+msgid "Please select a page"
+msgstr ""
+
+#: wp-employee-leaves.php:147
+msgid "Adding..."
+msgstr ""
+
+#: wp-employee-leaves.php:148
+msgid "Add Shortcode"
+msgstr ""
+
+#: wp-employee-leaves.php:149
+msgid "An error occurred while adding the shortcode."
+msgstr ""
+
+#: wp-employee-leaves.php:150
+msgid "Are you sure you want to approve this leave request?"
+msgstr ""
+
+#: wp-employee-leaves.php:151
+msgid "Approving..."
+msgstr ""
+
+#: wp-employee-leaves.php:152
+msgid "Approved"
+msgstr ""
+
+#: wp-employee-leaves.php:153
+msgid "Leave request approved successfully!"
+msgstr ""
+
+#: wp-employee-leaves.php:154
+msgid "Network error occurred while processing the request."
+msgstr ""
+
+#: wp-employee-leaves.php:155
+msgid "Approve"
+msgstr ""
+
+#: wp-employee-leaves.php:156
+msgid "Are you sure you want to reject this leave request?"
+msgstr ""
+
+#: wp-employee-leaves.php:157
+msgid "Rejecting..."
+msgstr ""
+
+#: wp-employee-leaves.php:158
+msgid "Rejected"
+msgstr ""
+
+#: wp-employee-leaves.php:159
+msgid "Leave request rejected successfully!"
+msgstr ""
+
+#: wp-employee-leaves.php:160
+msgid "Reject"
+msgstr ""
+
+#: wp-employee-leaves.php:161
+msgid "Invalid request ID."
+msgstr ""
+
+#: wp-employee-leaves.php:162
+msgid "Please fill in all required fields."
+msgstr ""
+
+#: wp-employee-leaves.php:163
+msgid "Saving..."
+msgstr ""
+
+#: wp-employee-leaves.php:164
+msgid "Copy Shortcode"
+msgstr ""
+
+#: wp-employee-leaves.php:165
+msgid "Copied!"
+msgstr ""
+
+#: wp-employee-leaves.php:63
+msgid "Submitting..."
+msgstr ""
+
+#: wp-employee-leaves.php:64
+msgid "Submit Leave Request"
+msgstr ""
+
+#: wp-employee-leaves.php:65
+msgid "Duplicate dates found:"
+msgstr ""
+
+#: wp-employee-leaves.php:66
+msgid "Please remove duplicate entries."
+msgstr ""
+
+#: wp-employee-leaves.php:67
+msgid "Please enter your employee ID."
+msgstr ""
+
+#: wp-employee-leaves.php:68
+msgid "Please select at least one date and leave type."
+msgstr ""
+
+#: wp-employee-leaves.php:69
+msgid "Please provide a reason for your leave."
+msgstr ""
+
+#: wp-employee-leaves.php:70
+msgid "Please fix the email validation errors before submitting."
+msgstr ""
+
+#: wp-employee-leaves.php:71
+msgid "An error occurred while submitting your request. Please try again."
+msgstr ""
+
+#: wp-employee-leaves.php:72
+msgid "Invalid email addresses in"
+msgstr ""

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="tests/bootstrap.php"
+    backupGlobals="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    testSuiteLoaderClass="PHPUnit\Runner\StandardTestSuiteLoader"
+    verbose="true">
+    
+    <testsuites>
+        <testsuite name="WP Employee Leaves Plugin Tests">
+            <directory>./tests/unit/</directory>
+            <directory>./tests/integration/</directory>
+            <directory>./tests/security/</directory>
+        </testsuite>
+    </testsuites>
+    
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./</directory>
+            <exclude>
+                <directory>./tests/</directory>
+                <directory>./languages/</directory>
+                <file>./test-curl.sh</file>
+                <file>./DEVELOPMENT_PLAN.md</file>
+            </exclude>
+        </whitelist>
+    </filter>
+    
+    <logging>
+        <log type="coverage-html" target="tests/coverage"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+        <log type="junit" target="tests/results/junit.xml"/>
+    </logging>
+    
+    <php>
+        <const name="WP_TESTS_DOMAIN" value="wptest.local"/>
+        <const name="WP_TESTS_EMAIL" value="admin@wptest.local"/>
+        <const name="WP_TESTS_TITLE" value="Test"/>
+        <const name="WP_DEBUG" value="true"/>
+        <const name="WP_DEBUG_LOG" value="true"/>
+        <const name="WP_DEBUG_DISPLAY" value="false"/>
+    </php>
+</phpunit>
