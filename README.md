@@ -1,6 +1,9 @@
-# WP Employee Leaves Plugin
+# WP HR Employee Leave Management
 
-A comprehensive WordPress plugin for managing employee leave requests with a modern admin interface.
+A comprehensive WordPress HR plugin for employee leave management with email approval system, contact memory, and professional workflow automation.
+
+## 🔗 Repository
+**GitHub**: [wp-hr-employee-leave-management](https://github.com/nadimtuhin/wp-hr-employee-leave-management)
 
 ## Features
 

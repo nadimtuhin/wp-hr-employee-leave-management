@@ -1,10 +1,13 @@
 <?php
 /**
  * Plugin Name: WP HR Employee Leave Management
+ * Plugin URI: https://github.com/nadimtuhin/wp-hr-employee-leave-management
  * Description: A comprehensive employee leave management system for WordPress
  * Version: 1.6.0
  * Author: HR Management Solutions
+ * Author URI: https://github.com/nadimtuhin
  * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: wp-employee-leaves
  */
 
