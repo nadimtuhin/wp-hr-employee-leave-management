@@ -34,4 +34,6 @@ DEVELOPMENT_PLAN.md
 
 # OS generated files
 Thumbs.db
-Desktop.ini
+Desktop.ininode_modules
+dist
+build
