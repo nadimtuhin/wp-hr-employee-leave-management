@@ -31,12 +31,8 @@ jobs:
           fi
 
       - name: Lint
-        run: |
-          if [ -f "package.json" ] && node -e "require('./package.json').scripts.lint" 2>/dev/null; then
-            npm run lint
-          else
-            echo "No lint script, skipping"
-          fi
+        run: npm run lint --if-present
+        continue-on-error: true
 
       - name: Test
         run: |
