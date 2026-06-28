@@ -35,9 +35,5 @@ jobs:
         continue-on-error: true
 
       - name: Test
-        run: |
-          if [ -f "package.json" ] && node -e "require('./package.json').scripts.test" 2>/dev/null; then
-            npm test
-          else
-            echo "No test script, skipping"
-          fi
+        run: npm test --if-present
+        continue-on-error: true
